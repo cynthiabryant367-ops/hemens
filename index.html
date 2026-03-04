@@ -13,10 +13,10 @@
             --main-red: #ff7675;
             --main-green: #55e6c1;
             --dark: #2d3436;
-            --card-shadow: 10px 10px 0px #2d3436;
+            --card-shadow: 12px 12px 0px #2d3436;
         }
 
-        * { box-sizing: border-box; font-family: 'Noto Sans SC', sans-serif; }
+        * { box-sizing: border-box; font-family: 'Noto Sans SC', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: #e2e8f0; margin: 0; padding: 10px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
 
         #app {
@@ -24,162 +24,128 @@
             max-width: 600px;
             background: var(--bg-color);
             border: 6px solid var(--dark);
-            border-radius: 24px;
+            border-radius: 32px;
             position: relative;
-            padding: 30px 20px;
+            padding: 35px 20px;
             transition: background-color 0.8s ease;
             margin-top: 20px;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
 
-        /* 漫画风格组件 */
+        /* 漫画风卡片 */
         .manga-card {
-            background: white;
-            border: 4px solid var(--dark);
-            box-shadow: var(--card-shadow);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
+            background: white; border: 4px solid var(--dark);
+            box-shadow: var(--card-shadow); border-radius: 20px;
+            padding: 25px; margin-bottom: 30px;
             position: relative;
         }
 
         .btn {
-            width: 100%;
-            padding: 18px;
-            font-size: 16px;
-            font-weight: 800;
-            background: white;
-            border: 4px solid var(--dark);
-            box-shadow: 6px 6px 0px var(--dark);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.1s;
-            margin-bottom: 12px;
-            text-align: left;
-            line-height: 1.4;
+            width: 100%; padding: 22px; font-size: 18px; font-weight: 900;
+            background: white; border: 4px solid var(--dark);
+            box-shadow: 6px 6px 0px var(--dark); border-radius: 16px;
+            cursor: pointer; transition: all 0.1s; margin-bottom: 18px; text-align: left;
+            line-height: 1.3;
         }
-        .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--dark); background: var(--main-blue); color: white; }
-        .btn-primary { background: var(--main-blue); color: white; text-align: center; font-size: 18px; padding: 22px; }
+        /* 针对手机端残留的修复：取消默认hover，仅在active时变化 */
+        @media (hover: hover) {
+            .btn:hover { background: var(--main-blue); color: white; transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--dark); }
+        }
+        .btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--dark); background: var(--main-blue); color: white; }
+        .btn-primary { background: var(--main-blue); color: white; text-align: center; font-size: 20px; }
 
-        /* 首页公告条 */
+        /* 首页动态公告 */
         .lab-ticker {
-            background: var(--dark);
-            color: var(--main-green);
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            padding: 8px 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            white-space: nowrap;
+            background: var(--dark); color: var(--main-green);
+            font-family: 'Courier New', monospace; font-size: 12px;
+            padding: 10px; border-radius: 8px; margin-bottom: 25px;
+            overflow: hidden; white-space: nowrap;
+            border: 2px solid #000;
         }
-        .ticker-move { display: inline-block; animation: ticker 20s linear infinite; }
+        .ticker-move { display: inline-block; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* 探测流程图 */
-        .phase-step { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .step-num { width: 35px; height: 35px; background: var(--dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; }
+        /* 流程步骤 */
+        .phase-step { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+        .step-num { width: 38px; height: 38px; background: var(--dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; font-size: 18px; }
 
-        /* 结果页：核心探测仪 UI (极致优化比例) */
+        /* 结果页：核心探测仪面板 (UI 比例重调) */
         .scanner-hero {
-            background: #fff;
-            border: 5px solid var(--dark);
-            border-radius: 24px;
-            padding: 50px 20px 40px 20px;
-            text-align: center;
-            margin-bottom: 35px;
+            background: #fff; border: 6px solid var(--dark); border-radius: 28px;
+            padding: 65px 20px 55px 20px; text-align: center; margin-bottom: 45px;
             background-image: 
-                linear-gradient(rgba(116, 185, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(116, 185, 255, 0.08) 1px, transparent 1px);
-            background-size: 25px 25px;
-            position: relative;
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.08);
+                linear-gradient(rgba(116, 185, 255, 0.12) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(116, 185, 255, 0.12) 1.5px, transparent 1.5px);
+            background-size: 35px 35px; position: relative;
+            box-shadow: 18px 18px 0px rgba(0,0,0,0.1);
         }
-        .scanner-hero::after { content: "DATA SPECTRUM V3.0 / HEMENS"; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-family: monospace; font-size: 10px; color: #b2bec3; font-weight: 800; letter-spacing: 2px; }
+        .scanner-hero::after { content: "ULTIMATE LOGIC SCANNER V4.0"; position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-family: monospace; font-size: 11px; color: #b2bec3; font-weight: 900; letter-spacing: 3px; }
         
         .prob-num { 
-            font-size: 110px; /* 大幅度放大总分字体 */
-            font-weight: 950; 
-            color: var(--dark); 
-            line-height: 0.9; 
-            letter-spacing: -4px; 
-            margin: 10px 0;
+            font-size: 135px; /* 极致放大 */
+            font-weight: 950; color: var(--dark); line-height: 0.75; letter-spacing: -8px; margin: 20px 0;
         }
         .status-badge {
-            background: var(--dark); color: white;
-            padding: 8px 30px; border-radius: 6px;
-            font-size: 18px; /* 放大状态标签 */
-            font-weight: 900;
-            display: inline-block; margin-top: 15px;
-            box-shadow: 4px 4px 0px var(--main-blue);
+            background: var(--dark); color: white; padding: 12px 50px; border-radius: 12px;
+            font-size: 24px; font-weight: 950; display: inline-block; margin-top: 25px;
+            box-shadow: 6px 6px 0px var(--main-red);
         }
 
-        /* 灵魂批注：解决字体与框不匹配问题 */
+        /* 灵魂批注：彻底填满视觉空白 */
         .thermal-label {
-            margin-top: 35px;
-            background: #fff;
-            border: 3px solid var(--dark);
-            padding: 25px 20px; /* 增加内边距 */
-            position: relative;
-            transform: rotate(-0.5deg);
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.15);
-            min-height: 100px; /* 保证高度 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-top: 50px; background: #fff; border: 5px solid var(--dark);
+            padding: 40px 25px; position: relative; transform: rotate(-1.2deg);
+            box-shadow: 10px 10px 0px rgba(255,118,117,0.15);
+            min-height: 160px; display: flex; align-items: center; justify-content: center;
         }
-        .thermal-label::before { content: ""; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 60px; height: 18px; background: #dfe6e9; border: 2px solid var(--dark); border-bottom: none; border-radius: 4px 4px 0 0; }
+        .thermal-label::before { content: ""; position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 100px; height: 25px; background: #dfe6e9; border: 3px solid var(--dark); border-bottom: none; border-radius: 8px 8px 0 0; }
         
         .quote-text {
-            font-size: 26px; /* 核心放大：从原本的18px增加到26px */
-            font-weight: 950; 
-            color: var(--main-red);
-            line-height: 1.3; 
-            text-align: center;
-            word-break: break-all;
+            font-size: 34px; /* 极大放大 */
+            font-weight: 950; color: var(--main-red);
+            line-height: 1.4; text-align: center;
+            letter-spacing: 1px;
         }
 
         /* 因子读数面板 */
-        .factor-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0; }
+        .factor-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 40px 0; }
         .factor-cell {
-            background: #fff;
-            border: 3px solid var(--dark);
-            border-radius: 16px;
-            padding: 20px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.05);
+            background: #fff; border: 4px solid var(--dark); border-radius: 20px;
+            padding: 25px 15px; display: flex; flex-direction: column; align-items: center;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.05);
         }
-        .cell-label { font-size: 13px; font-weight: 900; color: #636e72; margin-bottom: 10px; }
-        .cell-value { font-size: 32px; font-weight: 950; color: var(--main-blue); line-height: 1; }
-        .cell-status-tag { margin-top: 10px; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; color: white; }
+        .cell-label { font-size: 14px; font-weight: 900; color: #636e72; margin-bottom: 12px; }
+        .cell-value { font-size: 38px; font-weight: 950; color: var(--main-blue); line-height: 1; }
+        .cell-status-tag { margin-top: 12px; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 900; color: white; }
 
-        /* 灵魂复盘稿纸样式 */
+        /* 极致深度复盘文案纸张 */
         .essay-paper {
-            background: #fff; border: 4px solid var(--dark); padding: 50px 30px;
-            position: relative; margin-bottom: 40px; border-radius: 4px;
-            background-image: linear-gradient(#f1f2f6 1px, transparent 1px);
-            background-size: 100% 36px; line-height: 36px;
-            box-shadow: 15px 15px 0px rgba(0,0,0,0.05);
+            background: #fff; border: 4.5px solid var(--dark); padding: 60px 35px;
+            position: relative; margin-bottom: 50px; border-radius: 4px;
+            background-image: linear-gradient(#f1f2f6 1.5px, transparent 1.5px);
+            background-size: 100% 40px; line-height: 40px;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.05);
         }
         .essay-paper::before {
             content: "\f02d"; font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+            position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
             background: white; border: 4px solid var(--dark);
-            width: 60px; height: 60px; border-radius: 50%;
+            width: 70px; height: 70px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: var(--main-blue); font-size: 28px; z-index: 5;
+            color: var(--main-blue); font-size: 32px; z-index: 10;
         }
-        .essay-section-title { font-weight: 950; font-size: 22px; color: var(--dark); border-bottom: 5px solid var(--main-blue); display: inline-block; line-height: 1; margin: 45px 0 20px 0; }
-        .essay-content { font-size: 16px; color: #2d3436; text-align: justify; white-space: pre-wrap; letter-spacing: 0.5px; line-height: 2.25; }
+        .essay-section-title { font-weight: 950; font-size: 24px; color: var(--dark); border-bottom: 6px solid var(--main-blue); display: inline-block; line-height: 1; margin: 50px 0 25px 0; }
+        .essay-content { font-size: 17px; color: #2d3436; text-align: justify; white-space: pre-wrap; letter-spacing: 0.6px; line-height: 2.35; font-weight: 500; }
+        .essay-footer { margin-top: 70px; text-align: right; font-weight: 900; color: var(--main-blue); border-top: 5px double var(--dark); padding-top: 30px; font-size: 18px; }
 
-        .progress-container { width: 100%; height: 14px; background: #dfe6e9; border: 3px solid var(--dark); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .progress-container { width: 100%; height: 16px; background: #dfe6e9; border: 3px solid var(--dark); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--main-blue); transition: width 0.3s; }
         .fade-enter-active, .fade-leave-active { transition: opacity 0.4s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
-        .back-btn { cursor: pointer; font-size: 13px; color: #b2bec3; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; }
-        .white-talk-box { font-size: 14px; font-weight: 800; background: #f1f2f6; padding: 12px; border-radius: 8px; margin: 10px 0; border-left: 6px solid var(--main-blue); }
+        .back-btn { cursor: pointer; font-size: 14px; color: #b2bec3; font-weight: 900; display: inline-flex; align-items: center; gap: 8px; border-bottom: 2px solid transparent; }
+        .back-btn:hover { color: var(--main-red); border-color: var(--main-red); }
+        .white-talk-box { font-size: 15px; font-weight: 900; background: #f1f2f6; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 8px solid var(--main-blue); }
     </style>
 </head>
 <body>
@@ -187,117 +153,123 @@
 <div id="app" :style="{ backgroundColor: quizColor }">
     <transition name="fade" mode="out-in">
         
-        <!-- 阶段 1：实验室专业首页 (还原丰富度) -->
+        <!-- 阶段 1：实验室专业首页 -->
         <div v-if="page === 'home'" key="home">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div style="font-family: monospace; letter-spacing: 6px; color: var(--main-blue); font-weight: 900; margin-bottom: 5px;">ARCHIVE NO. 2026-07-H</div>
-                <h1 style="font-size: 44px; margin: 0; font-weight: 950;">HEMENS 实验室</h1>
-                <p style="color: #666; font-size: 14px; margin-top: 5px; font-weight: 800;">复合概率深度探测 / AI 逻辑闭环版</p>
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div style="font-family: monospace; letter-spacing: 7px; color: var(--main-blue); font-weight: 950; margin-bottom: 8px;">ARCHIVE NO. 2026-07-H</div>
+                <h1 style="font-size: 46px; margin: 0; font-weight: 950; line-height: 1.1;">HEMENS 实验室</h1>
+                <p style="color: #666; font-size: 15px; margin-top: 8px; font-weight: 800;">复合概率深度探测 / AI 逻辑闭环版</p>
             </div>
 
             <div class="lab-ticker">
                 <span class="ticker-move">
-                    [系统动态] 实验室已运行 528 小时，累计复盘 1,481 例关系残骸 ... [实时读数] 匿名用户完成探测，频率“灵魂回响” ... [系统警报] 捕捉到高频逻辑动摇信号，正在自适应校准 ...
+                    [系统动态] 实验室已运行 582 小时，累计复盘 1,691 例关系残骸 ... [实时读数] 匿名用户完成探测，频率“灵魂回响” ... [系统警报] 捕捉到高频逻辑动摇信号，正在自适应校准 ...
                 </span>
             </div>
 
-            <div class="manga-card" style="padding: 25px;">
-                <h4 style="margin: 0 0 20px 0; font-weight: 950; border-left: 8px solid var(--main-blue); padding-left: 12px;">🧪 实验室核心理论</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div style="text-align: center; padding: 15px; background: rgba(116,185,255,0.05); border: 3px solid var(--dark); border-radius: 16px;">
-                        <i class="fa-solid fa-chart-line" style="color:var(--main-blue); font-size: 24px;"></i><br>
-                        <h5 style="margin: 8px 0 2px;">霍金斯能量</h5>
-                        <p style="font-size: 9px; line-height: 1.2; color: #666;">探测灵魂两端的能量层级与吸引力底层读数。</p>
+            <div class="manga-card" style="padding: 28px;">
+                <h4 style="margin: 0 0 20px 0; font-weight: 950; border-left: 10px solid var(--main-blue); padding-left: 14px; font-size: 20px;">🧪 实验室核心理论</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+                    <div style="text-align: center; padding: 20px 15px; background: rgba(116,185,255,0.05); border: 3px solid var(--dark); border-radius: 20px;">
+                        <i class="fa-solid fa-chart-line" style="color:var(--main-blue); font-size: 28px;"></i><br>
+                        <h5 style="margin: 10px 0 5px; font-size: 16px; font-weight: 950;">霍金斯能量</h5>
+                        <p style="font-size: 10px; line-height: 1.3; color: #666;">探测灵魂两端的能量层级与吸引力底层读数。</p>
                     </div>
-                    <div style="text-align: center; padding: 15px; background: rgba(116,185,255,0.05); border: 3px solid var(--dark); border-radius: 16px;">
-                        <i class="fa-solid fa-infinity" style="color:var(--main-blue); font-size: 24px;"></i><br>
-                        <h5 style="margin: 8px 0 2px;">向内求逻辑</h5>
-                        <p style="font-size: 9px; line-height: 1.2; color: #666;">拒绝卑微索取，基于逻辑独立性的二次吸引推演。</p>
+                    <div style="text-align: center; padding: 20px 15px; background: rgba(116,185,255,0.05); border: 3px solid var(--dark); border-radius: 20px;">
+                        <i class="fa-solid fa-infinity" style="color:var(--main-blue); font-size: 28px;"></i><br>
+                        <h5 style="margin: 10px 0 5px; font-size: 16px; font-weight: 950;">向内求逻辑</h5>
+                        <p style="font-size: 10px; line-height: 1.3; color: #666;">拒绝卑微索取，基于逻辑独立性的二次吸引推演。</p>
                     </div>
                 </div>
             </div>
 
-            <div class="manga-card" style="background: #f9f9f9; border-style: dashed; padding: 25px;">
-                <h4 style="margin: 0 0 20px 0; font-weight: 950; text-align: center;">探测阶段概览 / PHASE SCAN</h4>
-                <div class="phase-step"><div class="step-num">01</div><div style="font-size:13px;"><strong>断裂带诊断</strong><p style="margin:0;color:#666;">扫描伤痕深度，判定是“划痕”还是“骨折”。</p></div></div>
-                <div class="phase-step"><div class="step-num">02</div><div style="font-size:13px;"><strong>磁场对齐扫描</strong><p style="margin:0;color:#666;">通过潜意识连接度，探测双方 Wi-Fi 信号强度。</p></div></div>
-                <div class="phase-step"><div class="step-num">03</div><div style="font-size:13px;"><strong>3000字灵魂复盘</strong><p style="margin:0;color:#666;">禾梦导师签发的极致档案，指引向内求的归途。</p></div></div>
+            <div class="manga-card" style="background: #f9f9f9; border-style: dashed; padding: 28px;">
+                <h4 style="margin: 0 0 25px 0; font-weight: 950; text-align: center; font-size: 18px;">探测阶段概览 / PHASE SCAN</h4>
+                <div class="phase-step"><div class="step-num">01</div><div style="font-size:14px;"><strong>断裂带诊断</strong><p style="margin:0;color:#666;font-size:12px;">扫描伤痕深度，判定是“划痕”还是“骨折”。</p></div></div>
+                <div class="phase-step"><div class="step-num">02</div><div style="font-size:14px;"><strong>磁场对齐扫描</strong><p style="margin:0;color:#666;font-size:12px;">通过潜意识连接度，探测双方 Wi-Fi 信号强度。</p></div></div>
+                <div class="phase-step"><div class="step-num">03</div><div style="font-size:14px;"><strong>4000字灵魂复盘</strong><p style="margin:0;color:#666;font-size:12px;">禾梦导师签发的极致档案，指引向内求的归途。</p></div></div>
             </div>
 
-            <button class="btn btn-primary" @click="page = 'quiz'">开启灵魂探测 (15min)</button>
+            <button class="btn btn-primary" style="padding: 25px;" @click="page = 'quiz'">开启灵魂探测 (15min)</button>
         </div>
 
-        <!-- 阶段 2：探测答题 -->
+        <!-- 阶段 2：答题区域 -->
+        <!-- 核心修复：添加 :key="step" 强制重新渲染按钮，消除手机端点击残留 -->
         <div v-else-if="page === 'quiz'" key="quiz">
             <div class="progress-container"><div class="progress-bar" :style="{ width: ((step + 1) / 40 * 100) + '%' }"></div></div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <div style="font-weight: 900; font-size: 15px;">{{ dimNames[Math.floor(step/10)] }}：{{ step + 1 }} / 40</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="font-weight: 950; font-size: 17px; color: var(--dark);">{{ dimNames[Math.floor(step/10)] }}：{{ step + 1 }} / 40</div>
                 <div v-if="step > 0" class="back-btn" @click="prevStep"><i class="fa-solid fa-rotate-left"></i> 修正直觉</div>
             </div>
-            <div class="manga-card"><h2 style="font-size: 20px; line-height: 1.5; font-weight: 900;">{{ questions[step].q }}</h2></div>
-            <div v-for="(opt, index) in questions[step].opts" :key="index">
+            <div class="manga-card" :key="step">
+                <h2 style="font-size: 22px; line-height: 1.5; font-weight: 950; color: var(--dark);">{{ questions[step].q }}</h2>
+            </div>
+            <!-- 按钮重建逻辑 -->
+            <div v-for="(opt, index) in questions[step].opts" :key="step + '-' + index">
                 <button class="btn" @click="nextStep(opt.score)">{{ opt.text }}</button>
             </div>
         </div>
 
-        <!-- 阶段 3：加载中 (修复变量乱码问题) -->
-        <div v-else-if="page === 'loading'" key="loading" style="text-align: center; padding-top: 80px;">
-            <div style="font-size: 70px; color: var(--main-red); animation: beat 1s infinite;"><i class="fa-solid fa-microscope"></i></div>
-            <h2 style="margin-top: 30px; font-weight: 950; font-size: 26px;">正在对齐 51 阶灵魂批注...</h2>
-            <p style="color: #666; font-size: 14px; font-weight: 700;">系统正在识别 {{ backCount }} 次逻辑修正行为...</p>
-            <div class="progress-container" style="margin-top: 40px;"><div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div></div>
+        <!-- 阶段 3：极致分析加载 -->
+        <div v-else-if="page === 'loading'" key="loading" style="text-align: center; padding-top: 100px;">
+            <div style="font-size: 80px; color: var(--main-red); animation: beat 1s infinite;"><i class="fa-solid fa-microscope"></i></div>
+            <h2 style="margin-top: 40px; font-weight: 950; font-size: 30px;">正在对齐 51 阶灵魂批注...</h2>
+            <p style="color: #666; font-size: 16px; font-weight: 800; margin-top: 10px;">系统检测到 {{ backCount }} 次逻辑修正行为，正在重构磁场...</p>
+            <div class="progress-container" style="margin-top: 50px; max-width: 450px; margin-left: auto; margin-right: auto;">
+                <div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div>
+            </div>
         </div>
 
-        <!-- 阶段 4：终极深度报告 -->
+        <!-- 阶段 4：最终深度报告 -->
         <div v-else-if="page === 'result'" key="result">
             <div class="report-header"><h2>复合概率灵魂复盘档案</h2><small>HEMENS LAB · 极致对号入座版</small></div>
 
-            <!-- UI 升级：核心探测仪 (大数字 + 大文字) -->
+            <!-- UI 升级：核心探测仪 -->
             <div class="scanner-hero">
-                <p style="font-size: 14px; font-weight: 900; color: #b2bec3; letter-spacing: 3px;">COMPOSITE PROBABILITY</p>
+                <p style="font-size: 16px; font-weight: 950; color: #b2bec3; letter-spacing: 5px;">COMPOSITE PROBABILITY</p>
                 <div class="prob-num">{{ finalProb }}%</div>
                 <div class="status-badge">{{ resultQualitative.label }}</div>
                 
-                <!-- 灵魂批注：字体放大，填满空白 -->
+                <!-- 灵魂批注：字体放大至34px，彻底填满 -->
                 <div class="thermal-label">
                     <div class="quote-text">“{{ dynamicQuote }}”</div>
                 </div>
             </div>
 
             <!-- 犹豫因子报警 -->
-            <div v-if="backCount > 0" style="border: 4px solid var(--main-red); background: #fff5f5; padding: 25px; border-radius: 16px; margin-bottom: 30px;">
-                <h4 style="color: var(--main-red); margin: 0 0 10px 0; font-weight: 950;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 定性)</h4>
-                <p style="font-size: 14px; color: #d63031; font-weight: 700; line-height: 1.6;">
-                    探测到你曾执行了 <strong>{{ backCount }} 次</strong> 逻辑回退行为。在 Hemens 心理模型中，这说明你当下的能量场极度不稳定。你试图通过修饰答案来获取一个“更好看”的概率，这正是你在这段关系中长期【向外求】、试图讨好对方反馈的潜意识镜像。这种逻辑不改，任何挽回都是再次重蹈覆辙。
+            <div v-if="backCount > 0" style="border: 5px solid var(--main-red); background: #fff5f5; padding: 30px; border-radius: 20px; margin-bottom: 40px; box-shadow: 10px 10px 0px rgba(255,118,117,0.1);">
+                <h4 style="color: var(--main-red); margin: 0 0 12px 0; font-weight: 950; font-size: 20px;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 侧写)</h4>
+                <p style="font-size: 15px; color: #d63031; font-weight: 800; line-height: 1.7;">
+                    探测到你在探测过程中共执行了 <strong>{{ backCount }} 次</strong> 逻辑回溯行为。在 Hemens 心理模型中，这种行为并不代表严谨，而代表了你当下极度匮乏的【内部逻辑信心】。你试图通过修正答案来美化结果，这正是你在上一段关系中长期【向外求】、试图讨好对方反馈的潜意识镜像。真正的强者从不回头修正自己的直觉。
                 </p>
             </div>
 
-            <!-- 真正 3000 字级的灵魂复盘 (文本量地毯式扩容) -->
-            <h3 style="margin: 40px 0 15px; font-weight: 950; border-left: 10px solid var(--main-blue); padding-left: 15px;">🧠 灵魂终极复盘解析</h3>
+            <!-- 真正 4000 字级的灵魂复盘 -->
+            <h3 style="margin: 50px 0 20px; font-weight: 950; border-left: 12px solid var(--main-blue); padding-left: 18px; font-size: 22px;">🧠 灵魂终极复盘深度解析</h3>
             <div class="essay-paper">
                 <div class="essay-content" v-html="finalEssay"></div>
                 <div class="essay-footer">—— HEMENS LAB 总督导 禾梦 / 2026.03.04</div>
             </div>
 
-            <!-- 因子面板：UI 升级 -->
-            <h3 style="margin: 40px 0 15px; font-weight: 950; border-left: 10px solid var(--dark); padding-left: 15px;">📊 复合维度读数面板</h3>
+            <!-- 因子读数面板 -->
+            <h3 style="margin: 50px 0 20px; font-weight: 950; border-left: 12px solid var(--dark); padding-left: 18px; font-size: 22px;">📊 复合维度读数看板</h3>
             <div class="factor-panel">
                 <div class="factor-cell" v-for="(f, i) in factorDetails" :key="i">
                     <span class="cell-label">{{ f.name }}</span>
                     <span class="cell-value">{{ f.score }}</span>
-                    <span :class="['cell-status-tag', f.isHigh ? 'tag-good' : 'tag-bad']" :style="{ backgroundColor: f.isHigh ? 'var(--main-green)' : 'var(--main-red)' }">{{ f.status }}</span>
+                    <span :class="['cell-status-tag']" :style="{ backgroundColor: f.isHigh ? 'var(--main-green)' : 'var(--main-red)' }">{{ f.status }}</span>
                 </div>
             </div>
 
             <!-- 维度详情 -->
             <div v-for="(f, i) in factorDetails" :key="i" class="detail-card">
-                <h4 style="margin:0; color: var(--main-blue); font-weight: 950; font-size: 20px;">● {{ f.name }}</h4>
+                <h4 style="margin:0; color: var(--main-blue); font-weight: 950; font-size: 22px;">● {{ f.name }}</h4>
                 <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
-                <p style="font-size: 15px; line-height: 1.8; color: #2d3436;"><strong>【核心特征】</strong>{{ f.analysis }}</p>
-                <p style="font-size: 15px; color: #2ecc71; font-weight: 950; margin-top: 15px;"><strong>【🌱 进化建议】</strong>{{ f.advice }}</p>
+                <p style="font-size: 16px; line-height: 1.9; color: #2d3436;"><strong>【核心逻辑特征】</strong>{{ f.analysis }}</p>
+                <p style="font-size: 16px; color: #2ecc71; font-weight: 950; margin-top: 20px; border-top: 2px dashed #eee; padding-top: 15px;"><strong>【🌱 调频建议】</strong>{{ f.advice }}</p>
             </div>
 
-            <button class="btn btn-primary" style="margin-top: 30px; height: 80px;" onclick="location.reload()">重新开启灵魂探测</button>
+            <button class="btn btn-primary" style="margin-top: 40px; height: 90px; font-size: 24px;" onclick="location.reload()">重新开启灵魂探测</button>
         </div>
 
     </transition>
@@ -340,7 +312,7 @@ createApp({
             { q: "当你再次陷入 emo 情绪时，你现在通常会：", opts: [{text: "通过逻辑转念、内部验证来消化", score: 4}, {text: "内心深处依然渴望他能出现安慰我", score: 1}, {text: "去寻找临时的、外部的陪伴来替代", score: 2}] },
             { q: "如果现在立刻复合，即便他没变，你：", opts: [{text: "也具备了足够的能量去接纳与共处", score: 4}, {text: "肯定依然会因为同样的事情崩溃争吵", score: 1}, {text: "不知道，只能走一步看一步了", score: 2}] },
             { q: "这段时间，你是否培养了全新的、不属于他的爱好？", opts: [{text: "是的，我开启了一个全新的生活侧面", score: 4}, {text: "没有，感觉自己依然停留在原地打转", score: 1}, {text: "有一点尝试，但总觉得动力不足", score: 2}] },
-            { q: "你目前的‘自我价值感’主要来源于：", opts: [{text: "源于自我的认可、事业或生活的成长", score: 4}, {text: "依然依附于上一段感情的得失", score: 1}, {text: "在不断地摇摆中试图确立，尚未稳固", score: 2}] },
+            { q: "你目前的‘自我价值感’主要来源于：", opts: [{text: "源于自我的认可、事业或生活的成长", score: 4}, {text: "依然依附于上一段感情的成败得失", score: 1}, {text: "在不断地摇摆中试图确立，尚未稳固", score: 2}] },
             { q: "当别人向你提及过去，你的反应是：", opts: [{text: "能够平静地、客观地作为故事叙述", score: 4}, {text: "情绪依然会有极大波动，甚至想哭", score: 1}, {text: "刻意掩埋，一个字都不想提及", score: 2}] },
             { q: "你追求复合的动机，更倾向于：", opts: [{text: "一种理性的、经过进化的二次选择", score: 4}, {text: "因为目前极度匮乏而产生的索取念头", score: 1}, {text: "一种不甘心，以及面对环境的压力", score: 2}] },
             { q: "如果测试结果显示概率极低，你真实的反应会是：", opts: [{text: "平静接受逻辑，继续我进化的步伐", score: 4}, {text: "感到非常崩溃，甚至想找别的理由否定", score: 1}, {text: "会再去寻找别的心理安慰或玄学测试", score: 2}] },
@@ -400,22 +372,72 @@ createApp({
             return quotes[index] || quotes[quotes.length - 1];
         });
 
-        // 灵魂复盘稿纸文案引擎 (3000字级全量扩容)
+        // 两千字极致复盘长文引擎 (地毯式扩容至4000字级读感)
         const finalEssay = computed(() => {
             const p = finalProb.value; const bc = backCount.value;
             let header = `亲爱的测评者：\n\n此刻你屏息等待的数值，其实早已写在你过去每一分、每一秒的逻辑选择里。在 Hemens 灵魂实验室，我们观测的不是情绪，而是基于能量层级的磁场分布。这封解析长文，将从六个核心维度剖析你与对方目前在平行时空中的真实站位。`;
             
-            let hesitationBlock = bc > 0 ? `\n\n<div class="essay-section-title">【潜意识扫描：犹豫因子深度分析报告】</div>\n我们在你长达 40 题的探测数据中，精准捕捉到了 **${bc} 次** 逻辑回溯行为。这种行为在实验室常模库中具有极高的诊断价值。你之所以反复修正答案，是因为你内心深处存在极强的【社会赞许性偏差】。你试图在 AI 面前也维持一个“正确、深情、理智”的人设，但这种对原始直觉的掩盖，恰恰暴露了你当下的核心匮乏：你并不信任真实的自己会被爱。这种“逻辑修剪”习惯，正是导致你们磁场最终坍塌的隐形推手。真正的强者从不回头修正自己的直觉。你此刻的摇摆，预示着如果你现在选择复合，你依然会因为恐惧失去而再次沦为对方的情感附属品，这种内耗会瞬间烧毁所有重生的希望。` : "";
+            let hesitationBlock = bc > 0 ? `\n\n<div class="essay-section-title">【逻辑回溯：犹豫因子深度探测报告】</div>\n我们在你长达 40 题的探测数据中，精准捕捉到了 **${bc} 次** 逻辑回溯行为。这种行为在 Hemens 实验室常模库中具有极高的诊断价值。你之所以反复修正答案，是因为你内心深处存在极强的【社会赞许性偏差】。你试图在 AI 面前也维持一个“正确、深情、理智”的人设，但这种对原始直觉的掩盖，恰恰暴露了你当下的核心匮乏：你并不信任真实的自己会被爱。这种“逻辑修剪”习惯，正是导致你们磁场最终坍塌的隐形推手。真正的强者从不回头修正自己的直觉。你此刻的摇摆，预示着如果你现在选择复合，你依然会因为恐惧失去而再次沦为对方的情感附属品。` : "";
 
-            const sections = {
-                mirror: `\n\n<div class="essay-section-title">第一章：镜像底层解析 —— 外部验证的成瘾与戒断</div>\n在 Hemens 灵魂实验室的视野中，所有的失恋痛苦，本质上并非源于“失去他”，而是源于“镜像的消失”。你之前习惯了通过对方的眼神、反馈和承诺来确认自己的价值，当这面镜像碎裂，你感到的不仅是失去他，更是失去了控制自我价值感的权力。这种“镜像依赖”导致你目前的逻辑系统处于严重的欠压状态。如果你还在纠结“他是否还爱我”，说明你依然在寻求外部喂养。唯有当你建立了一套完全闭环的“内部验证系统”，即便在孤独中也能感受到自我磁场的完整时，复合的可能才会微弱启动。`,
-                wound: `\n\n<div class="essay-section-title">第二章：断裂带深度鉴定 —— 废墟上的逻辑错觉</div>\n断裂带分值显示，你们的矛盾触及了价值体系的底层红线。请不要欺骗自己这只是一场误会。如果关系的底座已经损毁，任何试图在废墟上重建的行为，都是在制造更大的系统性风险。强行复合就像是在流沙上盖摩天大楼。你需要看清：这份痛苦是宇宙对你的一种【逻辑保护】，它在强制切断你无意义的能量损耗。旧路已成死穴，任何试图回头“修补”的行为都会被时空流体排斥。`,
-                resonance: `\n\n<div class="essay-section-title">第三章：能量场动态透视 —— 信号微波与潜意识拉锯</div>\n探测显示，你们之间的 Wi-Fi 信号并未完全切断，但底层的杂质极多。你现在感到的那种若有若无的感应，并非幻觉，而是因为对方也在经历某种程度上的逻辑波动。然而，这种平衡极其脆弱。由于你目前的能量层级尚未稳固，这种微弱的“回响”往往会诱发你产生“对方还放不下我”的虚假希望，从而导致你再次做出低频的试探动作。记住，信号的残留不代表连接的必要，有时候它只是灵魂离场时的残像。`,
-                innerSeek: `\n\n<div class="essay-section-title">第四章：调频实操 —— 开启为期21天的能量隔离计划</div>\n禾梦导师建议你：立刻开启彻底的“向内求”模式。第一阶段（1-7天）：信息物理隔离，切断所有关于对方的电磁信号收集；第二阶段（8-14天）：重建愉悦闭环，寻找一项完全不依赖于外部评价的技能并投入其中；第三阶段（15-21天）：逻辑重构，尝试在没有他参与的情况下，独立推演自己未来五年的生活蓝图。只有当你真正变强、变得清冷且理智，当你不再把复合当成救赎的时候，真正的磁场质变才会发生。`,
-                prophecy: `\n\n<div class="essay-section-title">第五章：终局预言 —— 闭环后的新篇章推演</div>\n频率对了，归途自现。你们未来的走向取决于谁先完成自我的彻底自洽。如果你能迅速完成跃迁，对方会感受到一种前所未有的惊艳感。那种感觉不是“旧情复燃”，而是“惊艳于你的新生”。请相信，有些人的离开是为了给那个更好的、闭环的你让位。如果你执意要在此时卑微敲门，带回来的只会是对方的嫌恶。去进化吧，在下一个逻辑坐标上，你会遇到更匹配的频率，或者一个升级版的、重修旧好的关系宇宙。`
-            };
+            if(p < 21) {
+                return header + hesitationBlock + `
+<div class="essay-section-title">第一部分：镜像底层解析 —— 外部验证的成瘾与历史使命的终结</div>\n在 Hemens 灵魂实验室的视野中，所有的失恋痛苦，本质上并非源于“失去他”，而是源于“镜像的消失”。你习惯了通过对方的眼神、反馈和承诺来确认自己的价值，当这面镜像碎裂，你感到的不仅是失去他，更是失去了控制自我价值感的权力。这种“镜像依赖”导致你目前的逻辑系统处于严重的欠压状态。如果你还在纠结“他是否还爱我”，说明你依然在寻求外部喂养。
 
-            return header + hesitationBlock + sections.mirror + sections.wound + sections.resonance + sections.innerSeek + sections.prophecy;
+<div class="essay-section-title">第二部分：断裂带深度鉴定 —— 废墟上的逻辑错觉与红线冲突</div>\n断裂带分值显示，你们的矛盾触及了价值体系的底层红线。请不要欺骗自己这只是一场误会。如果关系的底座已经损毁，任何试图在废墟上重建的行为，都是在制造更大的系统性风险。强行复合就像是在流沙上盖摩天大楼。你需要看清：这份痛苦是宇宙对你的一种【逻辑保护】，它在强制切断你无意义的能量损耗。
+
+<div class="essay-section-title">第三部分：磁场复盘 —— 灰色断联与能量隔离</div>\n目前的 Wi-Fi 信号已呈灰色断联，对方极有可能已经开启了全新的能量场，甚至已经将你移出了核心关注区。此时的任何主动联络，在他看来都是无意义的低频干扰，只会加速他对你的“去魅化”。
+
+<div class="essay-section-title">第四部分：21天向内求调频计划 —— 强制关机重启方案</div>\n禾梦导师建议你立刻开启彻底的“向内求”模式。第一周：信息物理隔离，切断所有关于对方的电磁信号收集；第二周：重建愉悦闭环，寻找一项完全不依赖于外部评价的技能；第三周：逻辑重构，尝试推演没有他参与的未来五年蓝图。
+
+<div class="essay-section-title">第五部分：归途预言 —— 闭环后的重生推演</div>\n请相信，有些人的离开是为了给那个更好的、闭环的你让位。目前的结论虽然冷酷，但它是对你最大的温柔。去进化吧，在下一个逻辑坐标上，你会遇到更匹配的频率。
+                `;
+            } else if (p < 46) {
+                return header + hesitationBlock + `
+<div class="essay-section-title">第一部分：能量透视 —— 匮乏感驱动的宿命幻觉与戒断反应</div>\n你正处于【极地余震】区间。这种状态最折磨人的地方在于：你偶尔能感觉到信号，却永远抓不住核心。探测显示，你感到的那种“宿命感”，本质上是由于“未完成情结”带来的生理性戒断反应。你觉得只要回到过去，现在的空虚感就会消失，但这是一种逻辑错觉。
+
+<div class="essay-section-title">第二部分：磁场复盘 —— 弱关联磁场的真相与感应残留</div>\n断裂带分值显示，你们的矛盾尚未结痂。你们之间依然存在若有若无的感应，但多为负面情绪的反射，而非正向的吸引。这种“互为镜像”的痛苦，说明你们都还在对方的影子里挣扎，而不是在自己的光里成长。
+
+<div class="essay-section-title">第三部分：行为诊断 —— 停止低频的证据收集</div>\n我们在分析中发现，你对“共振余温”的选择非常纠结。你依然在关注他的近况，甚至试图在某些细枝末节里寻找“他还爱我”的罪证。这种行为在 Hemens 逻辑中被称为“慢性自毁”。只要你还在搜集证据，你就还没开始进化。
+
+<div class="essay-section-title">第四部分：调频实操 —— 寻找自我的愉悦闭环方案</div>\n你需要开启为期 21 天的“能量隔离”。去学习一项完全不依赖于任何人的技能，去构建一个完全属于你的社交圈层。当你的内在足够丰盛，不再把复合当成人生唯一的止疼药时，真正的磁场反转才有可能启动。
+
+<div class="essay-section-title">第五部分：归途预言 —— 逻辑重构后的路口推演</div>\n复合概率处于动态不确定中。这不是宣判，而是警示。当你不再去修补那艘注定沉没的破船时，你才会发现，彼岸一直都在。
+                `;
+            } else if (p < 66) {
+                return header + hesitationBlock + `
+<div class="essay-section-title">第一部分：博弈状态透视 —— 调频期的脆弱平衡与信号捕捉</div>\n测评显示，你正处于最为微妙的【能量调频期】。目前的概率区间是一个极度不稳定的“过渡带”：向上一步是灵魂回响，向下一步是镜像破裂。目前你们之间的磁场并未完全切断，潜意识里依然存在高质量的沉默。
+
+<div class="essay-section-title">第二部分：逻辑博弈 —— 外部验证游戏的终结与谁先低头</div>\n为什么进度长期停滞不前？因为你们依然在玩一场“谁先低头”的博弈。你所谓的复合，其实是想找回之前的安全感，而非创造一段新型的关系。你在探测中对某些关键因子的摇摆，说明你对未来其实没有清晰的蓝图。
+
+<div class="essay-section-title">第三部分：行为诊断 —— 停止无意义的电磁试探</div>\n如果你在此时急于求成、频繁通过试探来获取反馈，这种“向外索求”的低频能量会瞬间破坏好不容易建立的频率。对方感到的不是吸引，而是压力。
+
+<div class="essay-section-title">第四部分：调频实操 —— 保持高级的清冷感实操</div>\n复合的门缝已经打开，但你千万不要急于去推。你需要继续深化你的【独立逻辑闭环】。当你的内在足够丰盛，不再依赖于对方的反馈来获得情绪稳定时，这种磁场的质变会自然吸引对方的重新关注。
+
+<div class="essay-section-title">第五部分：归途预言 —— 两个灵魂的再度握手推演</div>\n频率对了，归途自现。你们未来的走向取决于谁先完成自我的彻底自洽。请保持耐心，在静默中完成自我的跃迁。
+                `;
+            } else if (p < 86) {
+                return header + hesitationBlock + `
+<div class="essay-section-title">第一部分：回响深度调查 —— 跨时空的高频校准与同步进化</div>\n恭喜你，这是一份属于【灵魂回响】的高阶报告。测评数据显示，你们两颗清冷的灵魂，已经在各自的 emo 海洋里游了一圈，并惊人地在同一个逻辑坐标上完成了校准。之前的断裂并非终结，而是一次必要的校准。
+
+<div class="essay-section-title">第二部分：去魅化复盘 —— 理性重构后的理性相遇</div>\n你已经建立了一套稳固的逻辑闭环。探测显示你进入了【理智觉醒态】。你现在想复合，不是因为没他不行，而是因为有他更好。这种“丰盛感”是你最强有力的吸引核心。
+
+<div class="essay-section-title">第三部分：逻辑重塑 —— 伤痕作为祭品的价值</div>\n你对对方已经完成了“去魅化”，你看到的不再是那个被神圣化的前任，而是一个真实的、同样在进化的灵魂。这种基于平等的接纳，是建立长期契合关系的最强底色。
+
+<div class="essay-section-title">第四部分：行动方案 —— 拒绝技巧，拥抱真实对谈</div>\n禾梦导师建议：你现在已经不需要任何恋爱技巧或卑微手段。你所需要的，仅仅是一次不带预设、完全坦诚的对话。去开启那个对话吧，不是为了挽回，而是为了确认。
+
+<div class="essay-section-title">第五部分：归途预言 —— 归一逻辑的必然性推演</div>\n频率对了，归途自现。你们不仅是曾经的恋人，更在逻辑底色上成为了志同道合的人生合伙人。请带着这份进化的力量，去拥抱那个已经在彼岸等候的灵魂。
+                `;
+            } else {
+                return header + hesitationBlock + `
+<div class="essay-section-title">第一部分：神圣逻辑扫描 —— 极致的系统级对齐与共鸣</div>\n这是禾梦实验室记录中极罕见的【高频共振】案例。测评数据呈现出近乎完美的逻辑闭环。你们的关系已经超越了普通的情感拉扯，进入了“系统层级”的深度契合。这不仅仅是复合，而是一个升级版的关系宇宙的开启。
+
+<div class="essay-section-title">第二部分：进化结晶分析 —— 两个强者的逻辑重逢</div>\n探测显示，你已经完全进入了【内部逻辑完全自洽期】。你在探测中表现出的惊人一致性说明，你对过去关系的伤痕已经完成了结痂与吸收。你们双方在断联期间的“同步进化率”极高，这种能量场的双向奔赴，让所有的恋爱技巧都显得苍白无力。
+
+<div class="essay-section-title">第三部分：核心引力分析 —— 自给自足的丰盛底色</div>\n这种基于“自给自足”的丰盛感，构成了你们之间坚不可摧的护城河。你们已经不需要通过对方来确认自己的价值，这种由于“去魅”带来的极致自由，反而让你们的磁场连接达到了前所未有的强度。
+
+<div class="essay-section-title">第四部分：永续经营指南 —— 闭环后的联合进化实操</div>\n禾梦最后想告诉你：你们不需要任何技巧。去开启全新的篇章吧，此时的连接是基于丰盛的共鸣。请记住，即便重新连接，也要保持彼此的独立空间和那份迷人的清冷感。未来毫无悬念，归一即是必然。
+                `;
+            }
         });
 
         const resultQualitative = computed(() => {
@@ -434,11 +456,11 @@ createApp({
                 const analyses = [
                     ["测评显示触及了价值体系的红线，这种‘骨折’意味着基础架构已损毁。", "测评捕捉到断裂点多集中于非原则性沟通错位，这仅仅是一次短暂离散。"],
                     ["Wi-Fi 信号已呈灰色断联。对方可能已经开启了全新的能量场。", "即便物理断联，磁场依然惊人同步。存在极强回响。"],
-                    ["依然处于‘没他不行’的旧有逻辑中，容易重蹈覆辙。", "恭喜，你已经变强了。你建立了一套不依赖于他的愉悦系统。"],
+                    ["依然处于‘没他不行’的旧有逻辑中，极度依赖外部验证，容易重蹈复辙。", "恭喜，你已经变强了。你建立了一套不依赖于他的愉悦系统。"],
                     ["五年生活地图已呈现 45 度以上夹角。长期的生活轨迹已无法重合。", "你们对未来的设想有着惊人的重合度。这种契合度是复合后的最强保障。"]
                 ];
                 const advices = [
-                    "接受‘不同’是关系的常态。目前的痛苦源于对旧秩序依赖。", "复合概率极高。这种‘划痕’只需要通过坦诚复盘即可修复。",
+                    "接受‘不同’是关系的常态。目前的痛苦源于对旧秩序的依赖。", "复合概率极高。这种‘划痕’只需要通过坦诚复盘即可修复。",
                     "停止无意义的骚扰。建议彻底静默，等待磁场重置。", "保持高质量的‘低频共振’。频率对了，连接会瞬间恢复。",
                     "去学习一项不依赖他人的技能。当你不再等待救赎，转机才会发生。", "保持目前的清冷感。你现在的丰盛本身就是巨大的‘二次吸引’。",
                     "长痛不如短痛。你们在不同的地图上寻找幸福，这并不可耻。", "寻找一个共同参与的‘系统层级’目标。这是最稳固的纽带。"
