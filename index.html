@@ -524,8 +524,8 @@
 </head>
 <body>
 
-<!-- ========== 音频播放器：已替换为 emo.MP3 ========== -->
-<audio id="background-music" loop autoplay muted>
+<!-- ========== 音频播放器：修复播放逻辑 ========== -->
+<audio id="background-music" loop preload="auto">
     <source src="emo.MP3" type="audio/mpeg">
     你的浏览器不支持音频播放
 </audio>
@@ -677,13 +677,13 @@
     </transition>
 </div>
 
-<!-- ========== 新增：音乐控制按钮 ========== -->
+<!-- ========== 音乐控制按钮 ========== -->
 <div class="music-control" id="musicBtn" @click="toggleMusic">
     <i class="fa-solid fa-volume-mute" id="musicIcon"></i>
 </div>
 
 <script>
-const { createApp, ref, computed, nextTick } = Vue;
+const { createApp, ref, computed, nextTick, onMounted } = Vue;
 
 createApp({
     setup() {
@@ -697,42 +697,45 @@ createApp({
         const quizAlive = ref(true); // 用于强制物理销毁 DOM 状态
         const isAnswering = ref(false); // 新增：防重复点击锁
 
-        // ========== 新增：音乐控制相关变量 ==========
+        // ========== 音乐控制核心逻辑 (修复版) ==========
         const isMusicPlaying = ref(false);
-        const audio = document.getElementById('background-music');
-        const musicIcon = document.getElementById('musicIcon');
+        const audio = ref(null); 
+        const musicIcon = ref(null);
+
+        // 初始化音频对象
+        const initAudio = () => {
+            audio.value = document.getElementById('background-music');
+            musicIcon.value = document.getElementById('musicIcon');
+            // 默认静音状态
+            audio.value.muted = true;
+            musicIcon.value.className = 'fa-solid fa-volume-mute';
+            isMusicPlaying.value = false;
+        };
 
         // 切换音乐播放/暂停
         const toggleMusic = () => {
-            if (audio.muted) {
-                audio.muted = false;
-                isMusicPlaying.value = true;
-                musicIcon.className = 'fa-solid fa-volume-high';
+            if (!audio.value) initAudio(); // 确保音频对象已初始化
+
+            if (audio.value.muted) {
+                // 取消静音并尝试播放
+                audio.value.muted = false;
+                audio.value.play().then(() => {
+                    isMusicPlaying.value = true;
+                    musicIcon.value.className = 'fa-solid fa-volume-high';
+                }).catch(err => {
+                    console.log('播放失败，请再次点击:', err);
+                    // 失败时恢复静音状态
+                    audio.value.muted = true;
+                    musicIcon.value.className = 'fa-solid fa-volume-mute';
+                });
             } else {
-                audio.muted = true;
+                // 静音并暂停
+                audio.value.muted = true;
+                audio.value.pause();
                 isMusicPlaying.value = false;
-                musicIcon.className = 'fa-solid fa-volume-mute';
+                musicIcon.value.className = 'fa-solid fa-volume-mute';
             }
         };
-
-        // 页面交互后尝试自动播放（解决浏览器限制）
-        const tryPlayMusic = () => {
-            audio.play().then(() => {
-                // 播放成功后如果是静音状态，保持静音
-                if (audio.muted) {
-                    musicIcon.className = 'fa-solid fa-volume-mute';
-                    isMusicPlaying.value = false;
-                } else {
-                    musicIcon.className = 'fa-solid fa-volume-high';
-                    isMusicPlaying.value = true;
-                }
-            }).catch(err => {
-                console.log('音乐自动播放失败，需要用户交互后开启:', err);
-            });
-        };
-
-        // 监听页面第一个交互事件，尝试播放音乐
-        document.addEventListener('click', tryPlayMusic, { once: true });
 
         const dimNames = ["断裂带诊断", "磁场余温探测", "自我进化率", "未来重构力"];
 
@@ -909,6 +912,20 @@ createApp({
                     advice: isHigh ? advices[i*2+1] : advices[i*2] 
                 };
             });
+        });
+
+        // 页面加载完成后初始化音频
+        onMounted(() => {
+            initAudio();
+            // 监听页面任意点击，尝试自动播放（解决浏览器限制）
+            document.addEventListener('click', () => {
+                if (audio.value && audio.value.muted && !isMusicPlaying.value) {
+                    // 仅在首次交互时尝试播放
+                    audio.value.play().catch(err => {
+                        console.log('自动播放失败，需手动点击音乐按钮:', err);
+                    });
+                }
+            }, { once: true });
         });
 
         return { 
