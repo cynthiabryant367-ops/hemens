@@ -402,7 +402,7 @@
             background: var(--main-blue); 
             transition: width 0.3s; 
             /* 新增：进度条渐变，更美观 */
-            background: linear-gradient(90deg, var(--main-blue), #81c9ff);
+            background: linear-gradient(90deg, var(--main-blue), #81c1ff);
         }
         .fade-enter-active, .fade-leave-active { 
             transition: opacity 0.4s ease; 
@@ -434,7 +434,7 @@
             box-shadow: 3px 3px 0px rgba(116, 185, 255, 0.1);
         }
 
-        /* 维度详情卡片 - 核心优化：圈出区域排版升级 */
+        /* 维度详情卡片 - 核心优化：圈出区域升级 */
         .detail-card {
             width: 100%; 
             margin-bottom: 25px; /* 微调间距，更透气 */
@@ -448,7 +448,7 @@
             margin: 0 0 12px 0; /* 标题间距优化 */
             color: var(--main-blue); 
             font-weight: 950; 
-            font-size: 18px; /* 字体大小微调 */
+            font-size: 18px; /* 字体微调 */
             /* 新增：标题下划线，视觉引导 */
             padding-bottom: 8px;
             border-bottom: 2px dashed var(--main-blue);
@@ -456,11 +456,11 @@
         }
         .detail-card .white-talk-box {
             margin: 10px 0 15px 0; /* 对话框间距优化 */
-            border-left-width: 6px; /* 左边框宽度微调 */
+            border-left-width: 6px; /* 左边框微调 */
             padding: 12px 15px; /* 内边距更紧凑 */
         }
         .detail-card p {
-            font-size: 14px; /* 字体大小统一 */
+            font-size: 14px; /* 字体统一 */
             line-height: 1.7; /* 行高更舒适 */
             color: #2d3436; 
             margin: 8px 0; /* 段落间距优化 */
@@ -476,368 +476,467 @@
             #app {
                 border-width: 4px; /* 减小边框 */
                 border-radius: 24px; /* 减小圆角 */
-                padding: 15px 10px;
+                padding: 15px 10px; /* 减小内边距 */
             }
             .btn {
-                border-width: 3px; /* 减小按钮边框 */
-                box-shadow: 6px 6px 0px var(--dark); /* 减小阴影 */
+                padding: 15px 12px; /* 减小按钮内边距 */
+                font-size: 14px; /* 减小按钮字体 */
             }
-            .factor-panel {
-                grid-template-columns: 1fr; /* 小屏改为单列显示因子面板 */
+            .btn-primary {
+                padding: 18px 12px; /* 减小主按钮内边距 */
+                font-size: 16px; /* 减小主按钮字体 */
             }
-            /* 小屏优化维度详情卡片 */
-            .detail-card {
-                padding: 15px 10px;
-                border-width: 3px;
+            .scanner-hero {
+                padding: 30px 10px 25px 10px; /* 减小探测仪内边距 */
             }
-            .detail-card h4 {
-                font-size: 16px;
+            .prob-num {
+                font-size: clamp(40px, 18vw, 80px); /* 更小的数值字体 */
             }
+            .status-badge {
+                padding: 8px 20px; /* 减小状态标签内边距 */
+                font-size: 16px; /* 减小状态标签字体 */
+            }
+        }
+
+        /* ========== 新增：音乐控制按钮样式 ========== */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+        .music-control i {
+            color: white;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
 
-<div id="app" :style="{ backgroundColor: quizColor }">
-    <transition name="fade" mode="out-in">
-        
-        <!-- 阶段 1：实验室专业首页 -->
-        <div v-if="page === 'home'" key="home">
-            <div style="text-align: center; margin-bottom: 20px; width: 100%;">
-                <div style="font-family: monospace; letter-spacing: 4px; color: var(--main-blue); font-weight: 950; margin-bottom: 8px; font-size: 12px;">ARCHIVE NO. 2026-07-H</div>
-                <h1 style="font-size: clamp(28px, 10vw, 40px); margin: 0; font-weight: 950; line-height: 1.1;">HEMENS 实验室</h1>
-                <p style="color: #666; font-size: 14px; margin-top: 8px; font-weight: 900;">复合概率深度探测 / AI 极致版</p>
-            </div>
+    <!-- ========== 新增：音频播放器，已替换为你的本地音乐文件 ========== -->
+    <audio id="background-music" loop autoplay muted>
+        <!-- 文件名和你GitHub仓库里的完全一致 -->
+        <source src="3月5日(1).MP3" type="audio/mpeg">
+        你的浏览器不支持音频播放
+    
 
-            <div class="lab-ticker">
-                <span class="ticker-move">
-                    [系统动态] 实验室已复盘 1,691 例关系残骸 ... [实时读数] 匿名用户完成探测，频率“灵魂回响” ... [系统警报] 捕捉到高频逻辑动摇信号，正在自适应校准 ...
-                </span>
-            </div>
-
-            <div class="manga-card" style="padding: 20px;">
-                <h4 style="margin: 0 0 15px 0; font-weight: 950; border-left: 10px solid var(--main-blue); padding-left: 12px; font-size: 18px;">🧪 实验室核心理论</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;">
-                    <div style="text-align: center; padding: 15px 10px; background: rgba(116,185,255,0.05); border: 4px solid var(--dark); border-radius: 24px; width: 100%;">
-                        <i class="fa-solid fa-chart-line" style="color:var(--main-blue); font-size: 26px;"></i><br>
-                        <h5 style="margin: 8px 0 5px; font-size: 16px; font-weight: 950;">霍金斯能量</h5>
-                        <p style="font-size: 10px; line-height: 1.4; color: #666;">探测灵魂两端的能量层级与吸引力底层真实读数。</p>
-                    </div>
-                    <div style="text-align: center; padding: 15px 10px; background: rgba(116,185,255,0.05); border: 4px solid var(--dark); border-radius: 24px; width: 100%;">
-                        <i class="fa-solid fa-infinity" style="color:var(--main-blue); font-size: 26px;"></i><br>
-                        <h5 style="margin: 8px 0 5px; font-size: 16px; font-weight: 950;">向内求逻辑</h5>
-                        <p style="font-size: 10px; line-height: 1.4; color: #666;">拒绝卑微索取，基于逻辑独立性的二次吸引模拟推演。</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="manga-card" style="background: #f9f9f9; border-style: dashed; padding: 20px;">
-                <h4 style="margin: 0 0 20px 0; font-weight: 950; text-align: center; font-size: 16px;">探测阶段概览 / PHASE SCAN</h4>
-                <!-- 优化：阶段步骤结构调整，增加容器类名 -->
-                <div class="phase-step">
-                    <div class="step-num">01</div>
-                    <div class="step-text">
-                        <strong>断裂带诊断</strong>
-                        <p>扫描伤痕深度，判定是“划痕”还是“骨折”。</p>
-                    </div>
-                </div>
-                <div class="phase-step">
-                    <div class="step-num">02</div>
-                    <div class="step-text">
-                        <strong>磁场对齐扫描</strong>
-                        <p>通过潜意识连接度，探测 Wi-Fi 信号强度。</p>
-                    </div>
-                </div>
-                <div class="phase-step">
-                    <div class="step-num">03</div>
-                    <div class="step-text">
-                        <strong>4000字灵魂复盘</strong>
-                        <p>禾梦导师签发的极致档案，指引向内求的归途。</p>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-primary" style="padding: 20px; margin-top: 10px;" @click="page = 'quiz'">开启灵魂探测 (15min)</button>
-        </div>
-
-        <!-- 阶段 2：探测答题区域 -->
-        <!-- 终极修复：使用 v-if="quizAlive" 强制销毁旧 DOM 状态 -->
-        <div v-else-if="page === 'quiz'" key="quiz">
-            <div class="progress-container"><div class="progress-bar" :style="{ width: ((step + 1) / 40 * 100) + '%' }"></div></div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; width: 100%;">
-                <div style="font-weight: 950; font-size: 16px; color: var(--dark);">{{ dimNames[Math.floor(step/10)] }}：{{ step + 1 }} / 40</div>
-                <div v-if="step > 0" class="back-btn" @click="prevStep"><i class="fa-solid fa-rotate-left"></i> 修正直觉</div>
-            </div>
+    <div id="app" :style="{ backgroundColor: quizColor }">
+        <transition name="fade" mode="out-in">
             
-            <div v-if="quizAlive" class="quiz-content" style="width: 100%;">
-                <div class="manga-card" :key="'q-'+step">
-                    <h2 style="font-size: 20px; line-height: 1.5; font-weight: 950; color: var(--dark);">{{ questions[step].q }}</h2>
+            <!-- 阶段 1：实验室专业首页 -->
+            <div v-if="page === 'home'" key="home">
+                <div style="text-align: center; margin-bottom: 20px; width: 100%;">
+                    <div style="font-family: monospace; letter-spacing: 4px; color: var(--main-blue); font-weight: 950; margin-bottom: 8px; font-size: 12px;">ARCHIVE NO. 2026-07-H</div>
+                    <h1 style="font-size: clamp(28px, 10vw, 40px); margin: 0; font-weight: 950; line-height: 1.1;">HEMENS 实验室</h1>
+                    <p style="color: #666; font-size: 14px; margin-top: 8px; font-weight: 900;">复合概率深度探测 / AI 极致版</p>
                 </div>
-                <!-- 按钮组也加上 step key 彻底强制刷新 -->
-                <div v-for="(opt, index) in questions[step].opts" :key="'opt-'+step+'-'+index" style="width: 100%;">
-                    <button class="btn" @click="handleChoice(opt.score)">{{ opt.text }}</button>
+
+                <div class="lab-ticker">
+                    <span class="ticker-move">
+                        [系统动态] 实验室已复盘 1,691 例关系残骸 ... [实时读数] 匿名用户完成探测，频率“灵魂回响” ... [系统警报] 捕捉到高频动摇信号，正在自适应校准 ...
+                    </span>
                 </div>
+
+                <div class="manga-card" style="padding: 20px;">
+                    <h4 style="margin: 0 0 15px 0; font-weight: 950; border-left: 10px solid var(--main-blue); padding-left: 12px; font-size: 18px;">🧪 实验室核心理论</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;">
+                        <div style="text-align: center; padding: 15px 10px; background: rgba(116, 185, 255, 0.05); border: 4px solid var(--dark); border-radius: 24px; width: 100%;">
+                            <i class="fa-solid fa-chart-line" style="color:var(--main-blue); font-size: 26px;"></i><br>
+                            <h5 style="margin: 8px 0 5px; font-size: 16px; font-weight: 950;">霍金斯能量</h5>
+                            <p style="font-size: 10px; line-height: 1.4; color: #666;">探测灵魂两端的能量层级与吸引力底层真实读数。</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px 10px; background: rgba(116, 185, 255, 0.05); border: 4px solid var(--dark); border-radius: 24px; width: 100%;">
+                            <i class="fa-solid fa-infinity" style="color:var(--main-blue); font-size: 26px;"></i><br>
+                            <h5 style="margin: 8px 0 5px; font-size: 16px; font-weight: 950;">向内求逻辑</h5>
+                            <p style="font-size: 10px; line-height: 1.4; color: #666;">拒绝卑微索取，基于逻辑独立性的二次吸引模拟推演。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="manga-card" style="background: #f9f9f9; border-style: dashed; padding: 20px;">
+                    <h4 style="margin: 0 0 20px 0; font-weight: 950; text-align: center; font-size: 16px;">探测阶段概览 / PHASE SCAN</h4>
+                    <!-- 优化：阶段步骤结构调整 -->
+                    <div class="phase-step">
+                        <div class="step-num">01</div>
+                        <div class="step-text">
+                            <strong>断裂带诊断</strong>
+                            <p>扫描伤痕深度，判定“划痕”还是“骨折”。</p>
+                        </div>
+                    </div>
+                    <div class="phase-step">
+                        <div class="step-num">02</div>
+                        <div class="step-text">
+                            <strong>磁场对齐扫描</strong>
+                            <p>通过潜意识连接度，探测 Wi-Fi 信号强度。</p>
+                        </div>
+                    </div>
+                    <div class="phase-step">
+                        <div class="step-num">03</div>
+                        <div class="step-text">
+                            <strong>4000字灵魂复盘</strong>
+                            <p>禾梦导师签发的极致档案，指引向内求的归途。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="padding: 20px; margin-top: 10px;" @click="page = 'quiz'">开启灵魂探测 (15分钟)</button>
             </div>
-        </div>
 
-        <!-- 阶段 3：加载加载中 -->
-        <div v-else-if="page === 'loading'" key="loading" style="text-align: center; padding-top: 80px; width: 100%;">
-            <div style="font-size: clamp(50px, 15vw, 80px); color: var(--main-red); animation: beat 1s infinite;"><i class="fa-solid fa-microscope"></i></div>
-            <h2 style="margin-top: 30px; font-weight: 950; font-size: clamp(20px, 8vw, 28px);">计算 51 阶灵魂批注...</h2>
-            <p style="color: #666; font-size: 15px; font-weight: 800; margin-top: 10px;">系统识别到 {{ backCount }} 次逻辑修正，正在重校磁场...</p>
-            <div class="progress-container" style="margin-top: 40px; max-width: 100%; margin-left: auto; margin-right: auto;">
-                <div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div>
-            </div>
-        </div>
-
-        <!-- 阶段 4：终极深度报告 -->
-        <div v-else-if="page === 'result'" key="result" style="width: 100%;">
-            <div class="report-header" style="width: 100%;"><h2 style="font-size: 22px; font-weight: 950; margin-bottom: 5px;">复合概率灵魂复盘档案</h2><small style="font-size: 12px; color: #666;">HEMENS LAB · 深度透视版</small></div>
-
-            <!-- UI 升级：核心探测仪 (大数字 + 满格字) -->
-            <div class="scanner-hero">
-                <p style="font-size: 14px; font-weight: 950; color: #b2bec3; letter-spacing: 3px;">COMPOSITE PROBABILITY</p>
-                <div class="prob-num">{{ finalProb }}%</div>
-                <div class="status-badge">{{ resultQualitative.label }}</div>
+            <!-- 阶段 2：探测答题区域 -->
+            <!-- 终极修复：使用 v-if="quizAlive" 强制销毁旧组件状态 -->
+            <div v-else-if="page === 'quiz'" key="quiz">
+                <div class="progress-container"><div class="progress-bar" :style="{ width: ((step + 1) / 40 * 100) + '%' }"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; width: 100%;">
+                    <div style="font-weight: 950; font-size: 16px; color: var(--dark);">{{ dimNames[Math.floor(step/10)] }}：{{ step + 1 }} / 40</div>
+                    <div v-if="step > 0" class="back-btn" @click="prevStep"><i class="fa-solid fa-rotate-left"></i> 修正直觉</div>
+                </div>
                 
-                <!-- 灵魂批注：字号放大至 38px，彻底解决空白问题 -->
-                <div class="thermal-label">
-                    <div class="quote-text">“{{ dynamicQuote }}”</div>
+                <div v-if="quizAlive" class="quiz-content" style="width: 100%;">
+                    <div class="manga-card" :key="'q-'+step">
+                        <h2 style="font-size: 20px; line-height: 1.5; font-weight: 950; color: var(--dark);">{{ questions[step].q }}</h2>
+                    </div>
+                    <!-- 按钮组也加上 step key 彻底强制刷新 -->
+                    <div v-for="(opt, index) in questions[step].opts" :key="'opt-'+step+'-'+index" style="width: 100%;">
+                        <button class="btn" @click="handleChoice(opt.score)">{{ opt.text }}</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- 犹豫因子报警 (只要回退过就显示) -->
-            <div v-if="backCount > 0" style="border: 6px solid var(--main-red); background: #fff5f5; padding: 20px; border-radius: 24px; margin-bottom: 30px; box-shadow: 12px 12px 0px rgba(255,118,117,0.12); width: 100%;">
-                <h4 style="color: var(--main-red); margin: 0 0 10px 0; font-weight: 950; font-size: 18px;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 侧写)</h4>
-                <p style="font-size: 14px; color: #d63031; font-weight: 800; line-height: 1.6;">
-                    探测到你在探测过程中共执行了 <strong>{{ backCount }} 次</strong> 逻辑回溯行为。这反映出你在此刻的关系能量场中存在极强的不自信与【向外求】倾向。你试图美化答案，这正是你在这段关系中长期试图通过“表演”来换取对方认可的真实写影。真正的强者从不回头修正直觉。
-                </p>
-            </div>
-
-            <!-- 真正 4000 字级的灵魂复盘 (万字级深度文案池) -->
-            <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--main-blue); padding-left: 20px; font-size: 20px; width: 100%;">🧠 灵魂终极复盘深度解析</h3>
-            <div class="essay-paper">
-                <div class="essay-content" v-html="finalEssay"></div>
-                <div class="essay-footer">—— HEMENS LAB 总督导 禾梦 / 2026.03.04</div>
-            </div>
-
-            <!-- 因子面板 -->
-            <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--dark); padding-left: 20px; font-size: 20px; width: 100%;">📊 复合维度读数看板</h3>
-            <div class="factor-panel">
-                <div class="factor-cell" v-for="(f, i) in factorDetails" :key="i">
-                    <span class="cell-label">{{ f.name }}</span>
-                    <span class="cell-value">{{ f.score }}</span>
-                    <span class="cell-status-tag" :style="{ backgroundColor: f.isHigh ? 'var(--main-green)' : 'var(--main-red)' }">{{ f.status }}</span>
+            <!-- 阶段 3：加载中 -->
+            <div v-else-if="page === 'loading'" key="loading" style="text-align: center; padding-top: 80px; width: 100%;">
+                <div style="font-size: clamp(50px, 15vw, 80px); color: var(--main-red); animation: beat 1s infinite;"><i class="fa-solid fa-microscope"></i></div>
+                <h2 style="margin-top: 30px; font-weight: 950; font-size: clamp(20px, 8vw, 28px);">计算 51 阶灵魂批注...</h2>
+                <p style="color: #666; font-size: 15px; font-weight: 800; margin-top: 10px;">系统识别到 {{ backCount }} 次逻辑修正行为，正在重校磁场...</p>
+                <div class="progress-container" style="margin-top: 40px; max-width: 100%; margin-left: auto; margin-right: auto;">
+                    <div class="progress-bar" :style="{ width: loadingProgress + '%' }"></div>
                 </div>
             </div>
 
-            <!-- 维度详情 - 核心优化区域 -->
-            <div v-for="(f, i) in factorDetails" :key="i" class="detail-card">
-                <h4>● {{ f.name }}</h4>
-                <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
-                <p><strong>【核心逻辑定性】</strong>{{ f.analysis }}</p>
-                <p style="color: #2ecc71; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px;"><strong>【🌱 调频具体方案】</strong>{{ f.advice }}</p>
+            <!-- 阶段 4：终极深度报告 -->
+            <div v-else-if="page === 'result'" key="result" style="width: 100%;">
+                <div class="report-header" style="width: 100%;"><h2 style="font-size: 22px; font-weight: 950; margin-bottom: 5px;">复合概率灵魂档案</h2><small style="font-size: 12px; color: #666;">HEMENS LAB · 深度透视版</small></div>
+
+                <!-- UI 升级：核心探测仪 (大数字 + 满格字) -->
+                <div class="scanner-hero">
+                    <p style="font-size: 14px; font-weight: 950; color: #b2bec3; letter-spacing: 3px;">COMPOUND PROBABILITY</p>
+                    <div class="prob-num">{{ finalProb }}%</div>
+                    <div class="status-badge">{{ resultQualitative.label }}</div>
+                    
+                    <!-- 灵魂批注：字号放大至 38px，彻底解决空白问题 -->
+                    <div class="thermal-label">
+                        <div class="quote-text">“{{ dynamicQuote }}”</div>
+                    </div>
+                </div>
+
+                <!-- 犹豫因子报警 (只要回退过就显示) -->
+                <div v-if="backCount > 0" style="border: 6px solid var(--main-red); background: #fff5f5; padding: 20px; border-radius: 24px; margin-bottom: 30px; box-shadow: 12px 12px 0px rgba(255,118,117,0.12); width: 100%;">
+                    <h4 style="color: var(--main-red); margin: 0 0 10px 0; font-weight: 950; font-size: 18px;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 侧写)</h4>
+                    <p style="font-size: 14px; color: #d63031; font-weight: 800; line-height: 1.6;">
+                        探测到你在探测过程中共执行了 <strong>{{ backCount }} 次</strong> 逻辑回溯行为。这反映出你此刻的关系能量场中存在极强的不自信与【向外求】倾向。你试图美化答案，这正是你在这段关系中长期试图通过“表演”来换取认可的真实写照。真正的强者从不回头修正直觉。
+                    </p>
+                </div>
+
+                <!-- 真正 4000 字级灵魂复盘 (万字级深度文案池) -->
+                <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--main-blue); padding-left: 20px; font-size: 20px; width: 100%;">🧠 灵魂终极深度解析</h3>
+                <div class="essay-paper">
+                    <div class="essay-content" v-html="finalEssay"></div>
+                    <div class="essay-footer">—— HEMENS LAB 总导师 禾梦 / 2026.03.04</div>
+                </div>
+
+                <!-- 因子面板 -->
+                <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--dark); padding-left: 20px; font-size: 20px; width: 100%;">📊 复合维度读数看板</h3>
+                <div class="factor-panel">
+                    <div class="factor-cell" v-for="(f, i) in factorDetails" :key="i">
+                        <span class="cell-label">{{ f.name }}</span>
+                        <span class="cell-value">{{ f.score }}</span>
+                        <span class="cell-status-tag" :style="{ backgroundColor: f.isHigh ? var(--main-green) : var(--main-red) }">{{ f.status }}</span>
+                    </div>
+                </div>
+
+                <!-- 维度详情 - 核心优化区域 -->
+                <div class="detail-card" v-for="(f, i) in factorDetails" :key="i">
+                    <h4>● {{ f.name }}</h4>
+                    <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
+                    <p><strong>【核心定性】</strong>{{ f.analysis }}</p>
+                    <p style="color: #27ae60; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px;"><strong>🌱 调频具体方案</strong>{{ f.advice }}</p>
+                </div>
+
+                <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
             </div>
 
-            <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
-        </div>
+        </transition>
+    </div>
 
-    </transition>
-</div>
+    <!-- ========== 新增：音乐控制按钮 ========== -->
+    <div class="music-control" id="musicBtn" @click="toggleMusic">
+        <i class="fa-solid fa-volume-mute" id="musicIcon"></i>
+    </div>
 
-<script>
-const { createApp, ref, computed, nextTick } = Vue;
+    <script>
+        const { createApp, ref, computed, nextTick } = Vue;
 
-createApp({
-    setup() {
-        const page = ref('home'); 
-        const step = ref(0); 
-        const dimScores = ref([0, 0, 0, 0]);
-        const loadingProgress = ref(0); 
-        const quizColor = ref('#fffaf1');
-        const history = ref([]); 
-        const backCount = ref(0);
-        const quizAlive = ref(true); // 用于强制物理销毁 DOM 状态
+        createApp({
+            setup() {
+                const page = ref('home'); 
+                const step = ref(0); 
+                const dimScores = ref([0, 0, 0, 0]);
+                const loadingProgress = ref(0); 
+                const quizColor = ref('#fffaf1');
+                const history = ref([]); 
+                const backCount = ref(0);
+                const quizAlive = ref(true); // 用于强制销毁答题组件
 
-        const dimNames = ["断裂带诊断", "磁场余温探测", "自我进化率", "未来重构力"];
+                // ========== 新增：音乐控制相关变量 ==========
+                const isMusicPlaying = ref(false);
+                const audio = document.getElementById('background-music');
+                const musicIcon = document.getElementById('musicIcon');
 
-        const baseQuestions = [
-            { q: "关于那次分手的终极导火索，你现在的理解是：", opts: [{text: "对方一直没能真正理解我的精神核心", score: 4}, {text: "他在最后一段日子里变了许多，让我陌生", score: 1}, {text: "我们可能只是被琐碎和疲惫打败了", score: 2}] },
-            { q: "撇开距离、父母等现实阻碍，你觉得你们的价值观：", opts: [{text: "依然存在难以调和的底层冲突", score: 1}, {text: "只要在一起，任何阻碍都不再是阻碍", score: 4}, {text: "目前无法给出肯定的逻辑闭环", score: 2}] },
-            { q: "回顾分手前的沉默，你觉得那是：", opts: [{text: "一种体面的、留有余地的哀悼", score: 3}, {text: "一种令人窒息的、内耗的冷暴力", score: 1}, {text: "一种渐渐失去交流欲望的麻木", score: 2}] },
-            { q: "分手时，你是否曾试图通过‘指责对方’来缓解内心的匮乏？", opts: [{text: "没有，更多是在自省冲突根源", score: 4}, {text: "有，当时觉得全是他的错", score: 1}, {text: "在反思与指责中反复摇摆", score: 2}] },
-            { q: "如果给那段关系的‘痛苦程度’打分，你觉得：", opts: [{text: "痛苦是成长的祭品，是值得的", score: 4}, {text: "那是一段完全错误的损耗过程", score: 1}, {text: "从未深入思考过痛苦的价值", score: 2}] },
-            { q: "你们的分歧点，通常集中在：", opts: [{text: "生活琐事与习惯差异", score: 3}, {text: "对未来的底层规划不合", score: 1}, {text: "从未真正爆发过深层冲突", score: 2}] },
-            { q: "这次分手的性质，你倾向于定性为：", opts: [{text: "蓄谋已久的一个借口", score: 1}, {text: "一次突如其来的、情绪化的崩塌", score: 3}, {text: "一个理性的、双方进化的共同决定", score: 4}] },
-            { q: "想复合最深层的动力，源于：", opts: [{text: "觉得很多共同的目标还没写完", score: 4}, {text: "无法忍受目前的空虚与孤独感", score: 1}, {text: "习惯了对方的存在，懒得换人", score: 2}] },
-            { q: "关系中是否存在长期的‘能量不对等’？", opts: [{text: "基本保持了动态的平等与滋养", score: 4}, {text: "感到非常压抑，有一种被掏空感", score: 1}, {text: "确实存在间歇性的失衡", score: 2}] },
-            { q: "如果有机会再次重启，你会：", opts: [{text: "用更成熟、理性的方式去经营", score: 4}, {text: "宁愿这段感情从未出现在生命里", score: 1}, {text: "不做预设，看对方是否有改变", score: 2}] },
-            { q: "偶然刷到他的朋友圈动态，你的第一反应：", opts: [{text: "内心平静，淡然怀念", score: 4}, {text: "感到强烈的不甘或想评论的冲动", score: 1}, {text: "迅速划走，产生一种恐慌的排斥", score: 2}] },
-            { q: "梦见他时，场景的主基调通常是：", opts: [{text: "一种平静的、如同老友般的陪伴", score: 4}, {text: "一种紧张的、不停追逐却无果的逃避", score: 1}, {text: "在梦中依然在进行激烈的争吵", score: 1}] },
-            { q: "触碰到留下的旧物，你的第一感受：", opts: [{text: "感谢这一段陪伴我成长的旅程", score: 4}, {text: "感受到被抛弃的委屈感", score: 1}, {text: "产生生理性的厌恶或烦躁感", score: 1}] },
-            { q: "你们之间是否还保留着某种‘只有彼此懂’的微小习惯？", opts: [{text: "是的，依然在我的生活中保留着", score: 4}, {text: "已经随着分开彻底从记忆中抹除", score: 1}, {text: "偶尔会在无意识的时候突然想起", score: 2}] },
-            { q: "从别人口中听到他的近况，你的第一反应是：", opts: [{text: "作为一位老朋友，平静地听听", score: 4}, {text: "内心波澜万丈，甚至想多问问", score: 1}, {text: "完全不想听到任何关于他的消息", score: 1}] },
-            { q: "你的社交账号草稿箱里，是否有写给他却没发的文字？", opts: [{text: "已经清理干净，不需要再表达了", score: 4}, {text: "依然有很多，偶尔夜深时还会写", score: 1}, {text: "只有一两段极短的记录，偶尔看一眼", score: 2}] },
-            { q: "目前你们最真实的联络频率是：", opts: [{text: "偶尔的点赞或节日问候", score: 4}, {text: "彻底断开，彼此拉黑或屏蔽", score: 1}, {text: "处于反复的拉锯或争执中", score: 1}] },
-            { q: "在曾经属于你们的纪念日，你会习惯性看向手机吗？", opts: [{text: "已经不再有这个习惯，甚至不记得了", score: 4}, {text: "依然会不由自主地产生期待或失落", score: 1}, {text: "会刻意在这天关闭手机或避开回忆", score: 2}] },
-            { q: "遇到重大的喜悦或巨大的悲伤，第一个念头依然是他吗？", opts: [{text: "已经建立了新的分享闭环，不再是他了", score: 4}, {text: "依然会第一时间想分享，但最终忍住了", score: 1}, {text: "偶尔会有类似错觉，但很快就会消失", score: 2}] },
-            { q: "凭直觉，你认为现在的他对你持有什么情感？", opts: [{text: "仍保留着温情与尊重，只是频率不合", score: 4}, {text: "已经彻底放下，没有任何波澜了", score: 1}, {text: "可能依然带着某种难以言说的怨恨", score: 2}] },
-            { q: "没有他的这段时间，你即便一个人也能感到愉悦吗？", opts: [{text: "是的，已经找到了自给自足的生活平衡", score: 4}, {text: "还在建立中，目前依然很难熬", score: 2}, {text: "觉得生活支离破碎，完全没有方向", score: 1}] },
-            { q: "你意识到之前关系中的痛苦，主导因素在于：", opts: [{text: "双方认知维度的不匹配", score: 4}, {text: "全是对方性格太差、做错了太多", score: 1}, {text: "我也说不清楚，可能就是运气不好", score: 2}] },
-            { q: "当你再次陷入 emo 情绪时，你现在通常会：", opts: [{text: "通过逻辑转念、内部验证来消化", score: 4}, {text: "内心深处依然渴望他能出现安慰我", score: 1}, {text: "去寻找临时的、外部的陪伴来替代", score: 2}] },
-            { q: "如果现在立刻复合，即便他没变，你：", opts: [{text: "也具备了足够的能量去接纳与共处", score: 4}, {text: "肯定依然会因为同样的事情崩溃争吵", score: 1}, {text: "不知道，只能走一步看一步了", score: 2}] },
-            { q: "这段时间，你是否培养了全新的、不属于他的爱好？", opts: [{text: "是的，我开启了一个全新的生活侧面", score: 4}, {text: "没有，感觉自己依然停留在原地打转", score: 1}, {text: "有一点尝试，但总觉得动力不足", score: 2}] },
-            { q: "你目前的‘自我价值感’主要来源于：", opts: [{text: "源于自我的认可、事业或生活的成长", score: 4}, {text: "依然依附于上一段感情的得失", score: 1}, {text: "在不断地摇摆中试图确立，尚未稳固", score: 2}] },
-            { q: "当别人向你提及过去，你的反应是：", opts: [{text: "能够平静地、客观地作为故事叙述", score: 4}, {text: "情绪依然会有极大波动，甚至想哭", score: 1}, {text: "刻意掩埋，一个字都不想提及", score: 2}] },
-            { q: "你追求复合的动机，更倾向于：", opts: [{text: "一种理性的、经过进化的二次选择", score: 4}, {text: "因为目前极度匮乏而产生的索取念头", score: 1}, {text: "一种不甘心，以及面对环境的压力", score: 2}] },
-            { q: "如果测试结果显示概率极低，你真实的反应会是：", opts: [{text: "平静接受逻辑，继续我进化的步伐", score: 4}, {text: "感到非常崩溃，甚至想找别的理由否定", score: 1}, {text: "会再去寻找别的心理安慰或玄学测试", score: 2}] },
-            { q: "评价这段时间的单身状态，你的感悟是：", opts: [{text: "一场极其必要的、带点痛感的灵魂进化", score: 4}, {text: "一段灰暗的、充满自我惩罚色彩的折磨", score: 1}, {text: "没有什么特别的感悟，只是觉得空闲了", score: 2}] },
-            { q: "想象五年后的生活图景，你觉得他依然在场吗？", opts: [{text: "大概率会作为并肩前行的伙伴存在", score: 4}, {text: "几乎没有任何可能了，地图已经偏转", score: 1}, {text: "完全不敢想象五年后的事情，太遥远", score: 2}] },
-            { q: "你们是否有除了‘情感需求’之外的共同目标？", opts: [{text: "有的，我们的愿景与志趣非常一致", score: 4}, {text: "完全没有共同目标，只是因为寂寞", score: 1}, {text: "曾经有过，但现在已经想不起来了", score: 2}] },
-            { q: "为了重新在一起，你愿意放下‘我对你错’的执念吗？", opts: [{text: "愿意，我意识到自我成长比对错重要", score: 4}, {text: "很难，有些原则问题是我的底线", score: 1}, {text: "看对方的态度，对方让步我才让步", score: 2}] },
-            { q: "你们是否已经建立了一套‘冲突降温’的共同方案？", opts: [{text: "是的，我们已经形成了某种逻辑默契", score: 4}, {text: "没有，一旦爆发冲突就只会硬碰硬", score: 1}, {text: "正在试图去建立，但目前尚未达成", score: 2}] },
-            { q: "复合后，你是否能接受双方保持一定的‘清冷感’？", opts: [{text: "完全接受，我更需要高质量的独立空间", score: 4}, {text: "不太接受，我觉得相爱就要时刻连接", score: 1}, {text: "会努力去适应这种新型的关系状态", score: 2}] },
-            { q: "你直觉如何评价你们之间的这一次‘分手’？", opts: [{text: "灵魂重逢前的一次必要的、阵痛式校准", score: 4}, {text: "因为寂寞而产生的妥协，是一种内耗循环", score: 1}, {text: "命运的弄人，没有什么深层的逻辑可言", score: 2}] },
-            { q: "面对曾经对方给你的伤害，你真的准备好翻篇了吗？", opts: [{text: "是的，我已经开启了全新的逻辑视角", score: 4}, {text: "肯定还会反复提起，因为那是真实伤害", score: 1}, {text: "目前还没有信心，需要对方先给补偿", score: 2}] },
-            { q: "如果复合意味着需要你进行极其痛苦的自我重构：", opts: [{text: "我愿意，因为这本身就是我进化的过程", score: 4}, {text: "我不愿意，这太累了，感情不应该这样", score: 1}, {text: "看复合后的甜蜜程度是否值得这种代价", score: 2}] },
-            { q: "你们对‘亲密关系’的核心定义，目前是否趋同？", opts: [{text: "志同道合，我们对未来的理解非常接近", score: 4}, {text: "存在着不可调和的、根源性的价值观分歧", score: 1}, {text: "还处于浅层次的了解，尚未聊到核心层", score: 2}] },
-            { q: "此刻闭上眼，你真实的直觉告诉你：", opts: [{text: "我们会重新连接，且频率更稳定", score: 4}, {text: "我们不会复合，这只是我不死心的幻觉", score: 1}, {text: "还在迷茫中，我听不到自己内心的声音", score: 2}] }
-        ];
-
-        const questions = baseQuestions.map(item => ({ ...item, opts: [...item.opts, { text: "以上都不是", score: 2.5 }] }));
-
-        const handleChoice = async (score) => {
-            // 记录得分与历史
-            const dimIdx = Math.floor(step.value / 10);
-            dimScores.value[dimIdx] += score;
-            history.value.push({ score, dimIdx });
-
-            // 暴力修复：点击瞬间销毁答题组件
-            quizAlive.value = false;
-            
-            await nextTick(); // 等待 DOM 物理移除
-
-            if (step.value < 39) {
-                step.value++;
-                const colors = ["#fab1a0", "#74b9ff", "#fdcb6e", "#55e6c1", "#a29bfe"];
-                quizColor.value = colors[Math.floor(Math.random() * colors.length)] + "22";
-                quizAlive.value = true; // 重新创建全新组件
-            } else {
-                startAnalysis();
-            }
-        };
-
-        const prevStep = () => { 
-            if (step.value > 0) { 
-                const last = history.value.pop(); 
-                dimScores.value[last.dimIdx] -= last.score; 
-                step.value--; 
-                backCount.value++; 
-            } 
-        };
-
-        const startAnalysis = () => {
-            page.value = 'loading'; 
-            let p = 0;
-            const interval = setInterval(() => {
-                p += 1; 
-                loadingProgress.value = p;
-                if(p >= 100) { 
-                    clearInterval(interval); 
-                    page.value = 'result'; 
-                }
-            }, 50);
-        };
-
-        const finalProb = computed(() => {
-            const total = dimScores.value.reduce((a, b) => a + b, 0) - (backCount.value * 1.5);
-            return Math.max(0, Math.min(100, Math.round((total / 160) * 100)));
-        });
-
-        const dynamicQuote = computed(() => {
-            const quotes = [
-                "尘埃落定。挽回的行为本质上是对死亡的拒绝。", "镜像已成粉末。任何修复的尝试都是在伤害自己。", "逻辑死穴。这段关系在能量场中已被强制抹除。", "余烬已冷。所有的执念都只是对过去的鞭尸。", "历史终局。对方的磁场中已彻底查无此人。",
-                "冰封禁地。你们的语言系统已发生不可逆的乱码。", "单向孤独。你所感到的宿命感，其实是戒断反应。", "逻辑偏航。强行复合等同于在流沙上盖摩天大楼。", "彻底去魅。当你变强的那刻，他会成为你的耻辱。", "因果断裂。这段关系已完成了它所有的教学使命。",
-                "极地余震。痛苦只是因为你还没接纳真正的孤独。", "匮乏回响。你追求的不是他，而是救命稻草。", "模糊地带。你正在一个注定没结果的坐标里打转。", "情绪幻觉。你对他神圣化的滤镜正在缓慢破碎。", "弱电感应。但这仅仅是出于不甘心产生的余温。",
-                "戒断拉锯。每一秒的犹豫都在损耗你的核心能量。", "向外求的困局。你还在等一个永远不会来的道歉。", "磁场排异。你们的逻辑底座正在发生剧烈摩擦。", "信号盲区。目前所有的试探都只会换来无言。", "能量低洼。你需要先补齐自己内心的那个黑洞。",
-                "理智前夜。你已经察觉到旧路不通，但仍想回头。", "调频边缘。你的逻辑引擎正在试图强制重启。", "门槛拉扯。这一分概率，取决于你谁先停下索取。", "博弈中场。你们都在等对方先暴露出脆弱的底牌。", "平衡木上。任何急于求成的行为都会导致崩塌。",
-                "门缝微光。对方的潜意识里仍保留着一个灰色坑位。", "理性觉醒态。你开始意识到独立比依附更迷人。", "能量回涌。当你停止索取，信号反而开始微弱跳动。", "逻辑调优期。两颗灵魂正在平行时空互相打量。", "清冷感的质变。你越是不在乎，概率就越是攀升。",
-                "共振前兆。高质量的沉默中隐藏着尚未燃尽的火种。", "二次吸引微芒。你进化的气场已触及对方的感知。", "磁场对齐中。你们在各自的emo里完成了隐秘校准。", "灵魂折返。对方开始在某些瞬间疯狂地提取关于你的记忆。", "频率同步点。你们的地图在五年后的坐标上开始重合。",
-                "回响剧烈。物理的隔绝已无法切断潜意识的交换。", "灵魂校准完毕。你们需要的仅仅是一次不带预设的对话。", "破冰时刻。逻辑闭环已达成，只差一个现实契机。", "高维契合。这不是旧情复燃，而是两个新我的重逢。", "必然的引力。频率对了，归途只是时间问题。",
-                "深度共鸣。对方也在忍受着逻辑无法解释的强烈感应。", "神迹前奏。你们已经穿越了最漫长的断裂带黑暗。", "闭环达成。两颗进化的灵魂终于在终点站稳了脚跟。", "系统级对齐。这一刻，恋爱技巧已彻底失去了意义。", "绝对回响。你们的能量场已融合成一个新的共同体。",
-                "归一逻辑。这已超越了复合，是灵魂的整体回归。", "天命对位。所有的伤痕都成了建立稳固闭环的祭品。", "神圣共振。此时的静默，比千言万语更具统治力。", "极致同步。两张地图已合二为一，未来毫无悬念。", "逻辑终局：你们注定重逢，且频率将永恒稳定。"
-            ];
-            const index = Math.floor(finalProb.value / 2);
-            return quotes[index] || quotes[quotes.length - 1];
-        });
-
-        // 灵魂复盘长文 (突破 4000 字全量扩容引擎)
-        const finalEssay = computed(() => {
-            const p = finalProb.value; 
-            const bc = backCount.value;
-            let header = `亲爱的测评者：\n\n此刻你正在阅读的这份报告，是 Hemens 灵魂实验室通过 40 项核心因子对你当前能量场进行的“剥皮拆骨”式透视。在我们的视野中，所有的失恋痛苦、纠缠、甚至是深夜里的反复 emo，本质上都是一种逻辑上的“欠压状态”。这份长达八章的深度复盘，将指引你完成从“索取者”到“闭环者”的灵魂跃迁。`;
-            
-            let hesitationBlock = bc > 0 ? `\n\n<div class="essay-section-title">⚖️ 犹豫因子审判</div>\n└─ 讨好型动机分析\n我们在后台精准捕捉到了 **${bc} 次** 逻辑修正行为。在心理实验室常模库中，这种回头改答案的行为被定性为极高的【外部依赖度】。你之所以反复修正，是因为你内心深处依然存在极强的“社会赞许性偏差”。你甚至试图在面对一个探测算法时都维持一个深情、理智的假象。这种对原始直觉的掩盖，折射出你在上一段关系中的致命伤：你并不信任真实的、粗糙的自己是值得被爱的。这种“逻辑修剪”习惯，正是导致你们磁场最终坍塌的隐形推手。你要明白：真正的强者从不回头修正自己的直觉。你此刻的摇摆，预示着即便你现在通过技巧换回了对方，你依然会因为恐惧失去而再次陷入卑微内耗。` : "";
-
-            const sections = {
-                mirror: `\n\n<div class="essay-section-title">🔍 镜像底层解析</div>\n└─ 外部验证的成瘾与戒断\n在 Hemens 灵魂实验室的底层逻辑中，所有的失恋痛苦，本质上并非源于“失去那个人”，而是源于“定义权镜像的消失”。你之前长期习惯了通过对方的反馈、眼神、甚至是他的冷漠来确认自己的存在感和价值感。当这面镜像碎裂时，你感到的不仅是失去，更是失去了控制自我价值的能力。这种成瘾行为让你在断裂带中处于严重的逻辑欠压状态。如果你还在纠结“他现在在想什么”，说明你依然在向外寻求喂养。唯有当你建立了一套即便在极度孤独中也能感受到自我磁场完整的“内部验证系统”，复合的可能才会从尘埃中启动。`,
-                wound: `\n\n<div class="essay-section-title">🔬 断裂带定性</div>\n└─ 废墟上的逻辑错觉鉴定\n断裂带诊断分值反映出，你们的矛盾已经触及了价值体系的底座红线。请不要欺骗自己这只是一场简单的误会或者脾气不好。如果一段关系的底层逻辑已经损毁，任何试图在废墟上重建的行为，都是在制造更大的系统级风险。强行复合就像是在松软的流沙上盖摩天大楼。你需要看清：这份痛苦是宇宙对你的一种【逻辑保护】，它在强制切断你无意义的能量损耗。旧路已成死穴，每一次回头张望，都是在对自己进化的背叛。`,
-                resonance: `\n\n<div class="essay-section-title">📡 能量场动态透视</div>\n└─ 信号微波与潜意识拉锯\n探测显示，你们之间的磁场并未完全切断，但底层的杂质极多。你现在感到的那种若有若无的感应，并非幻觉，而是因为对方也在经历某种程度上的逻辑波动。然而，这种平衡极其脆弱。由于你目前的能量层级尚未稳固，这种微弱的“回响”往往会诱发你产生虚假的希望，从而导致你再次做出低频的试探动作。记住，信号的残留不代表连接的必要，有时候它只是灵魂离场时的电磁残像。真正的信号，应该是清冷、坚定且不需要任何猜疑的共振。`,
-                innerSeek: `\n\n<div class="essay-section-title">📝 21天向内求调频计划</div>\n└─ 逻辑闭环实操手册\n禾梦导师建议你立刻开启彻底的能量隔离计划：\n【第一周：断联隔离】切断所有电磁信号收集，包括社交平台视奸，彻底清空外部噪音；\n【第二周：重建愉悦闭环】寻找一项完全不依赖于外部评价的技能，投入 50 小时以上，建立自给自足的奖赏机制；\n【第三周：未来路径推演】在没有他参与的情况下，独立写出未来五年的生活蓝图。只有当你真正变强、变得清冷且理智，当你不再把复合当成人生唯一的救赎时，真正的磁场质变才会发生。当你不再寻找光，你才会成为光。`,
-                attachment: `\n\n<div class="essay-section-title">🧲 依恋逻辑偏差诊断</div>\n└─ 能量黑洞的自愈\n测评捕捉到你在“未来重构力”中的退缩。这说明你目前的依恋逻辑处于不安全态。你试图通过抓住对方来缓解生存焦虑，这种“生存级抓取”会让对方感到窒息而非温暖。你需要意识到，他不是你的解药，而是你投射在外部世界的幻觉。所有的复合难题，本质上都是你与自我相处的能力问题。当你的内在系统达成逻辑自洽，所谓的“复合概率”就会由你说了算，而非由算法说了算。`,
-                prophecy: `\n\n<div class="essay-section-title">🔮 终局预言</div>\n└─ 闭环后的新篇章推演\n频率对了，归途自现。你们未来的走向并不取决于对方的意志，而取决于你完成自我跃迁的速度。如果你能迅速完成闭环，对方会感受到一种前所未有的吸引力。那种感觉不是“旧情复燃”，而是“惊艳于你的重生”。请相信，有些人的离开是为了给那个更好的、闭环的你让位。如果你执意要在此时卑微敲门，带回来的只会是对方的嫌恶与自我的二次受创。去进化吧，在下一个逻辑坐标上，你会遇到更匹配的频率。`,
-                letter: `\n\n<div class="essay-section-title">✉️ 禾梦实验室私房信函</div>\n亲爱的，不要在废墟里寻找火苗。去成为那团火本身。这次探测只是一个开始，是你向内看的第一眼。所有消失的信号，最终都会以更好的方式回归。如果它没回来，说明它已经配不上进阶后的你了。祝你在这个清冷的夜晚，找回属于自己的、最稳固的逻辑闭环。`
-            };
-
-            // 核心修改：调整第四、五部分的拼接顺序
-            return header + hesitationBlock + sections.mirror + sections.wound + sections.resonance + sections.innerSeek + sections.attachment + sections.prophecy + sections.letter;
-        });
-
-        const resultQualitative = computed(() => {
-            const p = finalProb.value;
-            if(p < 21) return { label: "镜像破裂", quote: "强行复合等同于在废墟上盖楼。" };
-            if(p < 46) return { label: "极地余震", quote: "这种痛苦只是因为你还没接纳孤独。" };
-            if(p < 66) return { label: "能量调频中", quote: "复合门缝已经打开，但需突破‘情绪内耗期’。" };
-            if(p < 86) return { label: "灵魂回响", quote: "这是两个更强大的自我重新相遇。" };
-            return { label: "高频共振", quote: "逻辑闭环已达成，志同道合的人生合伙人。" };
-        });
-
-        const factorDetails = computed(() => {
-            const whites = ["伤口是划痕还是骨折？", "你们的 Wi-Fi 信号断了吗？", "你还是那个‘没他不行’的你吗？", "你们的地图还能重合吗？"];
-            return dimScores.value.map((s, i) => {
-                const avg = s / 10; 
-                const isHigh = avg > 2.5;
-                const analyses = [
-                    ["测评显示触及了价值体系的红线，这种‘骨折’意味着基础架构已损毁。", "测评捕捉到断裂点多集中于非原则性沟通错位，这仅仅是一次短暂离散。"],
-                    ["Wi-Fi 信号已呈灰色断联。对方可能已经开启了全新的能量场。", "即便物理断联，磁场依然惊人同步。存在极强回响。"],
-                    ["依然处于‘没他不行’的旧有逻辑中，极度依赖外部验证，容易重蹈复辙。", "恭喜，你已经变强了。你建立了一套不依赖于他的愉悦系统。"],
-                    ["五年生活地图已呈现 45 度以上夹角。长期的生活轨迹已无法重合。", "你们对未来的设想有着惊人的重合度。这种契合度是复合后的最强保障。"]
-                ];
-                const advices = [
-                    "接受‘不同’是关系的常态。目前的痛苦源于对旧秩序的依赖。", "复合概率极高。这种‘划痕’只需要通过坦诚复盘即可修复。",
-                    "停止无意义的骚扰。建议彻底静默，等待磁场重置。", "保持高质量的‘低频共振’。频率对了，连接会瞬间恢复。",
-                    "去学习一项不依赖他人的技能。当你不再等待救赎，转机才会发生。", "保持目前的清冷感。你现在的丰盛本身就是巨大的‘二次吸引’。",
-                    "长痛不如短痛。你们在不同的地图上寻找幸福，这并不可耻。", "寻找一个共同参与的‘系统层级’目标。这是最稳固的纽带。"
-                ];
-                return { 
-                    name: dimNames[i], 
-                    whiteTalk: whites[i], 
-                    score: (avg).toFixed(2), 
-                    status: isHigh ? "良好" : "显著", 
-                    isHigh, 
-                    analysis: isHigh ? analyses[i][1] : analyses[i][0], 
-                    advice: isHigh ? advices[i*2+1] : advices[i*2] 
+                // 切换音乐播放/暂停
+                const toggleMusic = () => {
+                    if (audio.muted) {
+                        audio.muted = false;
+                        isMusicPlaying.value = true;
+                        musicIcon.className = 'fa-solid fa-volume-high';
+                    } else {
+                        audio.muted = true;
+                        isMusicPlaying.value = false;
+                        musicIcon.className = 'fa-solid fa-volume-mute';
+                    }
                 };
-            });
-        });
 
-        return { 
-            page, step, questions, handleChoice, prevStep, startAnalysis, 
-            loadingProgress, quizColor, finalProb, resultQualitative, 
-            factorDetails, dimNames, finalEssay, dynamicQuote, backCount, quizAlive 
-        };
-    }
-}).mount('#app');
-</script>
+                // 页面交互后尝试自动播放（解决浏览器限制）
+                const tryPlayMusic = () => {
+                    audio.play().then(() => {
+                        // 播放成功后如果是静音状态，保持静音
+                        if (audio.muted) {
+                            musicIcon.className = 'fa-solid fa-volume-mute';
+                        } else {
+                            musicIcon.className = 'fa-solid fa-volume-high';
+                            isMusicPlaying.value = true;
+                        }
+                    }).catch(err => {
+                        console.log('音乐自动播放失败，需要用户交互后开启:', err);
+                    });
+                };
+
+                // 监听页面第一个交互事件，尝试播放音乐
+                document.addEventListener('click', tryPlayMusic, { once: true });
+
+                const dimNames = ["断裂带诊断", "磁场余温探测", "自我进化率", "未来重构力"];
+
+                const baseQuestions = [
+                    { q: "关于那次分手的终极导火索，你现在的理解是：", opts: [{text: "对方一直没能真正理解我的精神核心", score: 4}, {text: "他在最后那段日子里变了许多，让我陌生", score: 1}, {text: "我们可能只是被琐碎和疲惫打败了", score: 2}] },
+                    { q: "撇开距离、父母等现实阻碍，你觉得你们的价值观：", opts: [{text: "依然存在难以调和的底层冲突", score: 1}, {text: "只要在一起，任何阻碍都不再是阻碍", score: 4}, {text: "目前无法给出肯定的闭环", score: 2}] },
+                    { q: "回顾分手前的沉默，你觉得那是：", opts: [{text: "一种体面的、留有余地的哀悼", score: 3}, {text: "一种令人窒息的、内耗的冷暴力", score: 1}, {text: "一种渐渐失去交流欲望的麻木", score: 2}] },
+                    { q: "分手时，你是否曾试图通过“指责对方”来缓解内心的匮乏？", opts: [{text: "没有，更多是在自省冲突的根源", score: 4}, {text: "有，当时觉得全是他的错", score: 1}, {text: "在反思与指责间反复摇摆", score: 2}] },
+                    { q: "如果给那段关系的“痛苦程度”打分，你会打：", opts: [{text: "痛苦是成长的祭品，是值得的", score: 4}, {text: "那是一段完全错误的损耗过程", score: 1}, {text: "从未深入思考过其价值", score: 2}] },
+                    { q: "你们的分歧点，通常集中在：", opts: [{text: "生活琐事与习惯差异", score: 3}, {text: "对未来的底层规划不合", score: 1}, {text: "从未真正爆发过深层冲突", score: 2}] },
+                    { q: "这次分手的性质，你更倾向于定性为：", opts: [{text: "蓄谋已久的一个借口", score: 1}, {text: "一次突如其来的、情绪化的崩塌", score: 3}, {text: "一个理性的、双方进化的共同决定", score: 4}] },
+                    { q: "想复合的最底层动力，源于：", opts: [{text: "觉得还有很多共同目标没写完", score: 4}, {text: "无法忍受目前的空虚与孤独", score: 1}, {text: "习惯了对方的存在，懒得换人", score: 2}] },
+                    { q: "关系中是否存在长期的“能量不对等”？", opts: [{text: "基本保持了动态的平等与滋养", score: 4}, {text: "感到非常压抑，有一种被掏空感", score: 1}, {text: "确实存在间歇性的失衡", score: 2}] },
+                    { q: "如果有机会重启，你会：", opts: [{text: "用更成熟、理性的方式去经营", score: 4}, {text: "宁愿这段感情从未出现在生命里", score: 1}, {text: "不做预设，看对方是否改变", score: 2}] },
+                    { q: "偶然刷到他的朋友圈动态，你的第一反应是：", opts: [{text: "内心平静，淡然怀念", score: 4}, {text: "涌起强烈的不甘或想评论的冲动", score: 1}, {text: "迅速划走，产生恐慌的排斥", score: 2}] },
+                    { q: "梦见他时，场景的主基调通常是：", opts: [{text: "一种平静的、如同老友般的陪伴", score: 4}, {text: "一种紧张的、不停追逐却无果的逃避", score: 1}, {text: "在梦中依然在激烈地争吵", score: 1}] },
+                    { q: "触碰留下的旧物，你的第一感受是：", opts: [{text: "感谢这段陪伴我成长的旅程", score: 4}, {text: "感受到被抛弃的委屈感", score: 1}, {text: "产生生理性的厌恶或烦躁", score: 1}] },
+                    { q: "你们之间是否还保留着某种“只有彼此懂”的微小习惯？", opts: [{text: "是的，依然在生活中保留着", score: 4}, {text: "随着分开彻底从记忆中抹去", score: 1}, {text: "偶尔会在无意识时突然想起", score: 2}] },
+                    { q: "从别人口中听到他的近况，你的第一反应是：", opts: [{text: "作为一位老朋友，平静地听听", score: 4}, {text: "内心波澜万丈，甚至想多问几句", score: 1}, {text: "完全不想听到任何关于他的消息", score: 1}] },
+                    { q: "你的社交草稿箱里，是否还有写给他却未发出的文字？", opts: [{text: "已经清理干净，不需要再表达了", score: 4}, {text: "依然有很多，偶尔在深夜还会写", score: 1}, {text: "只有一两段极短的记录，偶尔看一眼", score: 2}] },
+                    { q: "目前你们最真实的联络频率是：", opts: [{text: "偶尔的点赞或节日问候", score: 4}, {text: "彻底断开，彼此拉黑或屏蔽", score: 1}, {text: "处于反复拉锯或争执中", score: 1}] },
+                    { q: "在曾经属于你们的纪念日，你会习惯性地看手机吗？", opts: [{text: "已经不再有这个习惯，甚至不记得了", score: 4}, {text: "依然会不由自主地产生期待或失落", score: 1}, {text: "会刻意在这天关掉手机避开回忆", score: 2}] },
+                    { q: "遇到重大的喜悦或悲伤，第一个念头依然是他吗？", opts: [{text: "已经建立了新的分享闭环，不再是他了", score: 4}, {text: "依然会第一时间想分享，但最终忍住了", score: 1}, {text: "偶尔会有类似错觉，但很快消失", score: 2}] },
+                    { q: "凭直觉，你认为现在他对你的情感是：", opts: [{text: "仍保留着温情与尊重，只是频率不合", score: 4}, {text: "已经彻底放下，没有任何波澜了", score: 1}, {text: "可能依然带着某种难以言说的怨恨", score: 2}] },
+                    { q: "没有他的这段日子，你是否能一个人感到愉悦？", opts: [{text: "是的，已经找到了自给自足的生活平衡", score: 4}, {text: "还在建立中，目前依然很难熬", score: 2}, {text: "觉得生活支离破碎，完全没有方向", score: 1}] },
+                    { q: "你意识到之前关系中的痛苦，主导因素在于：", opts: [{text: "双方认知维度的不匹配", score: 4}, {text: "全是对方性格太差、做错太多", score: 1}, {text: "我也说不清楚，可能就是运气不好", score: 2}] },
+                    { q: "当你再次陷入 emo 情绪时，现在通常会：", opts: [{text: "通过逻辑转念、内部验证来消化", score: 4}, {text: "内心深处依然渴望他能出现安慰我", score: 1}, {text: "去寻找临时的、外部的陪伴来替代", score: 2}] },
+                    { q: "如果现在立刻复合，即便他没有改变，你：", opts: [{text: "也具备了足够的能量去接纳与共处", score: 4}, {text: "肯定依然会因为同样的事情崩溃争吵", score: 1}, {text: "不知道，只能走一步看一步了", score: 2}] },
+                    { q: "这段时间，你是否培养了全新的、不属于他的爱好？", opts: [{text: "是的，我开启了一个全新的生活侧面", score: 4}, {text: "没有，感觉自己依然在原地打转", score: 1}, {text: "有一点尝试，但总觉得动力不足", score: 2}] },
+                    { q: "你目前的“自我价值感”主要来源于：", opts: [{text: "自我的认可、事业或生活的成长", score: 4}, {text: "依然依附于上一段感情的得失", score: 1}, {text: "在不断摇摆中试图确立，尚未稳固", score: 2}] },
+                    { q: "当别人向你提及过去，你的反应是：", opts: [{text: "能够平静、客观地作为故事叙述", score: 4}, {text: "情绪依然会有极大波动，甚至想哭", score: 1}, {text: "刻意掩埋，一个字都不想提及", score: 2}] },
+                    { q: "你追求复合的动机，更倾向于：", opts: [{text: "一种理性的、经过进化的二次选择", score: 4}, {text: "因为目前极度匮乏而产生的索取念头", score: 1}, {text: "一种不甘心，以及面对环境的压力", score: 2}] },
+                    { q: "如果探测结果显示概率极低，你的真实反应会是：", opts: [{text: "平静接受逻辑，继续我的进化步伐", score: 4}, {text: "感到非常崩溃，甚至想找别的理由否定", score: 1}, {text: "会再去寻找别的心理安慰或玄学测试", score: 2}] },
+                    { q: "评价这段单身时光的感悟，你会说：", opts: [{text: "一场极其必要的、带点痛感的灵魂进化", score: 4}, {text: "一段灰暗的、充满自我惩罚色彩的折磨", score: 1}, {text: "没有什么特别的感悟，只是觉得空闲了", score: 2}] },
+                    { q: "想象五年后的生活图景，你觉得他依然在场吗？", opts: [{text: "大概率会作为并肩前行的伙伴存在", score: 4}, {text: "几乎没有任何可能了，地图已经偏转", score: 1}, {text: "完全不敢想象五年后的事，太遥远", score: 2}] },
+                    { q: "你们是否有除了“情感需求”之外的共同目标？", opts: [{text: "有的，我们的愿景与志趣非常一致", score: 4}, {text: "完全没有共同目标，只是因为寂寞", score: 1}, {text: "曾经有过，但现在已经想不起来了", score: 2}] },
+                    { q: "为了重新在一起，你愿意放下“我对你错”的执念吗？", opts: [{text: "愿意，我意识到自我成长比对错重要", score: 4}, {text: "很难，有些原则问题是底线", score: 1}, {text: "看对方的态度，对方让步我才让步", score: 2}] },
+                    { q: "你们是否已经建立了一套“冲突降温”的共同方案？", opts: [{text: "是的，我们已经形成了某种逻辑默契", score: 4}, {text: "没有，一旦爆发冲突就只会硬碰硬", score: 1}, {text: "正在试图建立，但目前尚未达成", score: 2}] },
+                    { q: "复合后，你是否能接受双方保持一定的“清冷感”？", opts: [{text: "完全接受，我更需要高质量的独立空间", score: 4}, {text: "不太接受，我觉得相爱就要时刻粘连", score: 1}, {text: "会努力去适应这种新型的关系状态", score: 2}] },
+                    { q: "你直觉如何评价你们之间的这一次“分手”？", opts: [{text: "灵魂重逢前的一次必要的、阵痛式校准", score: 4}, {text: "因为寂寞而产生的妥协，是一种内耗循环", score: 1}, {text: "命运的捉弄，没有什么深层逻辑可言", score: 2}] },
+                    { q: "面对曾经他给你的伤害，你真的准备好翻篇了吗？", opts: [{text: "是的，我已经开启了全新的逻辑视角", score: 4}, {text: "肯定还会反复提起，因为那是真实伤害", score: 1}, {text: "目前还没有信心，需要对方先给补偿", score: 2}] },
+                    { q: "如果复合意味着需要进行极其痛苦的自我重构：", opts: [{text: "我愿意，因为这本身就是进化的过程", score: 4}, {text: "我不愿意，这太累了，感情不该这样", score: 1}, {text: "看复合后的甜蜜程度是否值得", score: 2}] },
+                    { q: "你们对“亲密关系”的核心定义，目前是否趋同？", opts: [{text: "志同道合，我们对未来的理解非常接近", score: 4}, {text: "存在着不可调和的、根源性的价值观分歧", score: 1}, {text: "还处于浅层次的了解，尚未聊到核心层", score: 2}] },
+                    { q: "此刻闭上眼，你真实的直觉告诉你：", opts: [{text: "我们会重新连接，且频率更稳定", score: 4}, {text: "我们不会复合，这只是我不死心的幻觉", score: 1}, {text: "还在迷茫中，我听不到自己内心的声音", score: 2}] }
+                ];
+
+                const questions = baseQuestions.map(item => ({ ...item, opts: [...item.opts, { text: "以上都不是", score: 2.5 }] }));
+
+                const handleChoice = async (score) => {
+                    // 记录得分与历史
+                    const dimIdx = Math.floor(step.value / 10);
+                    dimScores.value[dimIdx] += score;
+                    history.value.push({ step: step.value, score, dimIdx });
+
+                    // 暴力修复：点击瞬间销毁答题组件
+                    quizAlive.value = false;
+                    
+                    await nextTick(); // 等待 DOM 更新
+
+                    if (step.value < 39) {
+                        step.value++;
+                        const colors = ["#fab1a1", "#74b9ff", "#fdcb6e", "#55e6c1", "#a29bfe"];
+                        quizColor.value = colors[Math.floor(Math.random() * colors.length)] + "22";
+                        quizAlive.value = true; // 重新创建组件
+                    } else {
+                        page.value = 'loading';
+                        startAnalysis();
+                    }
+                };
+
+                const prevStep = () => { 
+                    if (step.value > 0) { 
+                        const last = history.value.pop(); 
+                        dimScores.value[last.dimIdx] -= last.score; 
+                        step.value--; 
+                        backCount.value++; 
+                    } 
+                };
+
+                const startAnalysis = () => {
+                    let p = 0;
+                    const interval = setInterval(() => {
+                        p += 1; 
+                        loadingProgress.value = p;
+                        if(p >= 100) { 
+                            clearInterval(interval); 
+                            page.value = 'result'; 
+                        }
+                    }, 50);
+                };
+
+                const finalProb = computed(() => {
+                    const total = dimScores.value.reduce((a, b) => a + b, 0) - (backCount.value * 1.5);
+                    return Math.max(0, Math.min(100, Math.round((total / 160) * 100)));
+                });
+
+                const dynamicQuote = computed(() => {
+                    const quotesLow = [
+                        "尘埃落定。挽回的行为本质上是对死亡的拒绝。", "镜像已成粉末。任何修复的尝试都是在伤害自己。", "逻辑死穴。这段关系在能量场中已被强制抹除。", "余烬已冷。所有的执念都只是对过去的鞭尸。", "历史终局。对方的磁场中已彻底查无此人。",
+                        "冰封禁地。你们的语言系统已发生不可逆的乱码。", "单向孤独。你所感到的宿命感，其实是戒断反应。", "逻辑偏航。强行复合等同于在流沙上盖摩天大楼。", "彻底去魅。当你变强的那一刻，他会成为你的耻辱。", "因果断裂。这段关系已完成了它所有的教学使命。"
+                    ];
+                    const quotesMid = [
+                        "极地余震。痛苦只是因为你还没接纳真正的孤独。", "匮乏回响。你追求的不是他，而是救命稻草。", "模糊地带。你正在一个注定没结果的坐标里打转。", "情绪幻觉。你对他的神化滤镜正在缓慢破碎。", "弱电感应。但这仅仅是出于不甘心产生的余温。",
+                        "戒断拉锯。每一秒犹豫都在损耗你的核心能量。", "向外求困局。你还在等一个永远不会来的道歉。", "磁场排异。你们的逻辑底座正在发生剧烈摩擦。", "信号盲区。目前所有的试探都只会换来无言。", "能量低洼。你需要先补齐自己内心的那个黑洞。"
+                    ];
+                    const quotesHigh = [
+                        "理智前夜。你已经察觉到旧路不通，但仍想回头。", "调频边缘。你的逻辑引擎正在试图强制重启。", "门槛拉扯。这一分概率，取决于你先停下索取。", "博弈中场。你们都在等对方先暴露出脆弱的底牌。", "平衡木上。任何急于求成的行为都会导致崩塌。",
+                        "门缝微光。对方的潜意识里仍保留着一个灰色坑位。", "理性觉醒态。你开始意识到独立比依附更迷人。", "能量回涌。当你停止索取，信号反而开始微弱跳动。", "逻辑调优期。两颗灵魂正在平行时空里互相打量。", "清冷感质变。你越是不在乎，概率就越是攀升。",
+                        "共振前兆。高质量的沉默里隐藏着尚未燃尽的火种。", "二次吸引微芒。你进化的气场已触及对方的感知。", "磁场对齐中。你们在各自的emo里完成了隐秘校准。", "灵魂折返。对方开始在某些瞬间疯狂提取关于你的记忆。", "频率同步点。你们的地图在五年后的坐标上开始重合。"
+                    ];
+                    const p = finalProb.value;
+                    if (p < 21) return quotesLow[Math.floor(Math.random() * quotesLow.length)];
+                    if (p < 46) return quotesMid[Math.floor(Math.random() * quotesMid.length)];
+                    if (p < 66) return quotesHigh[Math.floor(Math.random() * quotesHigh.length)];
+                    if (p < 86) return "回响剧烈。物理的隔绝已无法切断潜意识的交换。";
+                    return "逻辑终局：你们注定重逢，且频率将永恒稳定。";
+                });
+
+                // 灵魂复盘长文 (突破 4000 字全量扩容引擎)
+                const finalEssay = computed(() => {
+                    const p = finalProb.value; 
+                    const bc = backCount.value;
+                    let header = `亲爱的探测者：\n\n此刻你正在阅读的这份报告，是 HEMENS 实验室通过 40 项核心因子对你当前能量场进行的“剥皮拆骨”式透视。在我们的视野中，所有失恋的痛苦、纠缠乃至深夜的反复 emo，本质上都是一种逻辑层面的“欠压状态”。这份长达八章的深度复盘，将指引你完成从“向外求”到“向内求”的灵魂跃迁。`;
+                    
+                    let hesitationBlock = bc > 0 ? `\n\n【犹豫信号侧写】\n我们在探测数据流中捕捉到了你共 **${bc} 次** 的逻辑回溯行为。这绝非偶然，而是你能量场中极强的“不自信”与“表演型人格”的直接映射。你试图美化答案、修正直觉，这恰恰是你在这段关系中长期通过“讨好”与“表演”来换取认可的真实写照。真正的强者，从不回头。` : "";
+
+                    let sections = ``;
+                    if (p < 21) {
+                        sections = `\n\n【镜像底层解析】\n你的概率值处于极低区间，这意味着你们的关系在能量层面已被彻底“抹除”。你所感受到的执念、戒断反应，本质上是你的大脑在对“死亡”进行拒绝式处理。任何试图挽回的行为，都如同在流沙上浇筑混凝土，只会让你陷得更深。\n\n【废墟上的错觉鉴定】\n你依然在美化过去，将对方神化。但真相是：他从未是你的救赎，而只是你匮乏时的一根救命稻草。当你停止向外抓取，这根稻草便会随风飘散。\n\n【信号微波与潜意识拉锯】\n你所感知到的“他还在意我”，不过是关系断裂时产生的弱电余温。这种余温会随着时间逐渐冷却，直到彻底消失。不要再试图回应，那只会消耗你仅剩的能量。`;
+                    } else if (p < 46) {
+                        sections = `\n\n【断裂带深度扫描】\n你的概率值处于中等偏低区间，这说明你们的关系依然存在“排异反应”。核心问题并非“爱不爱”，而是“频率是否对齐”。你依然在向外索取情绪价值，而对方早已进入了更高的振动层级。\n\n【向内求调频方案】\n禾梦导师给你的第一阶段方案是：断联隔离。停止所有主动接触，清空社交草稿箱里未发出的文字。你需要用至少一周的时间，彻底清空自己对他的能量投射。\n\n【愉悦闭环重建】\n寻找一项完全属于你自己的爱好，投入至少 50 小时。当你能在独处中感受到愉悦，你的能量场才会开始吸引同频的人，而不是抓取旧的人。`;
+                    } else if (p < 66) {
+                        sections = `\n\n【磁场对齐预演】\n你的概率值处于临界区间，这是“二次吸引”的黄金窗口。但请注意：吸引的核心不是“你有多需要他”，而是“你有多不需要他”。当你彻底放下执念，专注于自我进化，对方反而会被你全新的气场吸引。\n\n【21天向内求计划】\n第一周：断联，清空所有联系方式与旧物。\n第二周：重建愉悦闭环，培养新爱好。\n第三周：高质量社交，展示你进化后的状态。\n\n【逻辑终局预判】\n如果严格执行此方案，你们有超过 60% 的概率在未来 3-6 个月内重新连接。但这次，主动权将完全掌握在你手中。`;
+                    } else if (p < 86) {
+                        sections = `\n\n【灵魂折返观测】\n你的概率值处于较高区间，这意味着对方的潜意识中，依然为你保留着一个“灰色坑位”。他可能正在深夜反复查看你的社交动态，或是在某个瞬间突然想起你的习惯。\n\n【高维对话策略】\n不要主动提及复合，只需轻描淡写地分享你进化后的生活。当他感受到你的“清冷感”与“高价值”，他会主动靠近。记住：最好的挽回，是让他觉得是他重新追回了你。\n\n【频率同步校准】\n你们的地图已经开始在未来的坐标上重合。保持你的节奏，不要为了迎合他而降低自己的频率。真正的重逢，是两个独立灵魂的双向奔赴。`;
+                    } else {
+                        sections = `\n\n【永恒稳定共振】\n你的概率值已接近峰值，这意味着你们的灵魂早已绑定，物理的分离只是暂时的校准。你们注定会重逢，并且这一次，频率将永恒稳定。\n\n【终极关系定义】\n你们的关系早已超越了普通的爱情，而是一种“灵魂伴侣”式的使命。你们需要共同完成一些未竟的目标，这才是你们纠缠至今的根本原因。\n\n【向内求的终极形态】\n当你们再次走到一起，你会发现：你不再需要他的认可，因为你早已成为了自己的太阳。而他，也会因为你的光芒，而变得更加完整。`;
+                    }
+
+                    let letter = `\n\n【禾梦导师的私信】\n亲爱的，不要在废墟里寻找火苗。去成为那团火本身。这次探测只是一个开始，是你向内看的第一眼。所有消失的信号，最终都会以更好的方式回归。如果它没回来，说明它配不上进阶后的你。祝你在这个清冷的夜晚，找回属于自己的、最稳固的逻辑闭环。`;
+
+                    return header + hesitationBlock + sections + letter;
+                });
+
+                const resultQualitative = computed(() => {
+                    const p = finalProb.value;
+                    if (p < 21) return { label: "镜像破裂", quote: "强行复合等同于在废墟上盖楼。" };
+                    if (p < 46) return { label: "极地余震", quote: "这种痛苦只是因为你还没接纳真正的孤独。" };
+                    if (p < 66) return { label: "能量调频中", quote: "复合的门缝已经打开，但需先突破情绪内耗。" };
+                    if (p < 86) return { label: "灵魂回响", quote: "这是两个更强大的自我重新相遇的契机。" };
+                    return { label: "高频共振", quote: "逻辑闭环已达成，志同道合的人生合伙人。" };
+                });
+
+                const factorDetails = computed(() => {
+                    const whites = ["伤口是划痕还是骨折？", "你们的 Wi-Fi 信号断了吗？", "你还是那个‘没他不行’的你吗？", "你们的地图还能重合吗？"];
+                    return dimScores.value.map((s, i) => {
+                        const avg = s / 10; 
+                        const isHigh = avg > 2.5;
+                        const analysesLow = [
+                            "测评显示触及了价值体系的红线，这种‘骨折’意味着基础架构已损毁。",
+                            "Wi-Fi 信号已呈灰色断联。对方可能已经开启了全新的能量场。",
+                            "依然处于‘没他不行’的旧有逻辑中，极度依赖外部验证，容易重蹈覆辙。",
+                            "五年生活地图已呈现 45 度以上夹角。长期的人生轨迹已无法重合。"
+                        ];
+                        const analysesHigh = [
+                            "测评捕捉到断裂点多集中于非原则性沟通错位，这仅仅是一次短暂离散。",
+                            "即便物理断联，磁场依然惊人同步。存在极强的灵魂回响。",
+                            "恭喜，你已经变强了。你建立了一套不依赖于他的愉悦系统。",
+                            "你们对未来的设想有着惊人的重合度。这种契合度是复合后的最强保障。"
+                        ];
+                        const advicesLow = [
+                            "接受‘不同’是关系的常态。目前的痛苦源于对旧秩序的依赖。",
+                            "停止无意义的骚扰。建议彻底静默，等待磁场重置。",
+                            "去学习一项不依赖他人的技能。当你不再等待救赎，转机才会发生。",
+                            "长痛不如短痛。你们在不同的地图上寻找幸福，并不羞耻。"
+                        ];
+                        const advicesHigh = [
+                            "复合概率极高。这种‘划痕’只需要通过坦诚复盘即可修复。",
+                            "保持高质量‘低频共振’。频率对了，连接会瞬间恢复。",
+                            "保持目前的清冷感。你现在的丰盛本身就是巨大的二次吸引力。",
+                            "寻找一个共同参与的‘系统级目标’。这是稳固关系的最强大纽带。"
+                        ];
+                        return { 
+                            name: dimNames[i], 
+                            whiteTalk: whites[i], 
+                            score: (avg).toFixed(2), 
+                            status: isHigh ? "良好" : "显著", 
+                            isHigh, 
+                            analysis: isHigh ? analysesHigh[i] : analysesLow[i], 
+                            advice: isHigh ? advicesHigh[i] : advicesLow[i] 
+                        };
+                    });
+                });
+
+                return { 
+                    page, step, questions, handleChoice, prevStep, startAnalysis, 
+                    loadingProgress, quizColor, finalProb, dynamicQuote, finalEssay, 
+                    resultQualitative, factorDetails, dimNames, backCount, quizAlive,
+                    toggleMusic // 暴露音乐控制方法
+                };
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>
