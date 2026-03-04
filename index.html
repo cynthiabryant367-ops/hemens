@@ -7,7 +7,29 @@
     <!-- 优先加载 Vue，确保全局可用 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
+        /* 灵魂名片弹窗与设计样式 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        .soul-card {
+            width: 350px; height: 500px; background: #0a0a0a; border: 1px solid #333;
+            padding: 30px; display: flex; flex-direction: column; justify-content: space-between;
+            box-sizing: border-box; color: #fff; font-family: serif; position: relative;
+        }
+        .card-header { display: flex; justify-content: space-between; font-size: 10px; color: #666; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .card-prob-val { font-size: 70px; font-weight: bold; margin: 10px 0; background: linear-gradient(180deg, #fff 0%, #444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-quote-box { font-size: 18px; font-style: italic; line-height: 1.6; margin-bottom: 15px; color: #eee; }
+        .card-back-tag { font-size: 11px; color: #ff4d4f; background: rgba(255,77,79,0.1); padding: 4px 8px; display: inline-block; }
+        .card-qr-box { display: flex; align-items: center; gap: 10px; border-top: 1px solid #222; padding-top: 20px; }
+        .card-btn-group { margin-top: 20px; display: flex; gap: 10px; }
+        .card-save-btn { padding: 12px 25px; background: #fff; color: #000; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+        .card-close-btn { padding: 12px 25px; background: transparent; color: #fff; border: 1px solid #444; border-radius: 5px; cursor: pointer; }
+        
         /* 基础重置与移动端适配核心规则 */
         * { 
             box-sizing: border-box; 
@@ -648,6 +670,36 @@
         <p>你可能会好奇，为什么你的答案能测出TA的感受？</p>
         <p>其实这并非读心术，而是根据关系心理学与行为规律，从你的状态里，推导出你们关系最真实的样子。所有结果，都是基于客观逻辑的高概率判断。</p>
     </div>
+
+            <button class="btn btn-primary" style="margin-top: 20px; height: 80px; font-size: 20px; width: 100%; background-color: var(--dark);" @click="openCardModal">领取我的灵魂档案名片</button>
+
+            <div v-if="showCard" class="modal-overlay">
+                <div id="soul-card-target" class="soul-card">
+                    <div class="card-header">
+                        <span>HEMENS LAB</span>
+                        <span>{{ archiveNo }}</span>
+                    </div>
+                    <div>
+                        <div style="font-size:10px; color:#888; margin-bottom:5px;">COMPOSITE PROBABILITY</div>
+                        <div class="card-prob-val">{{ finalProb }}%</div>
+                        <div style="display:inline-block; border:1px solid #fff; padding:2px 8px; font-size:12px;">{{ resultQualitative.label }}</div>
+                    </div>
+                    <div class="card-quote-box">“{{ dynamicQuote }}”</div>
+                    <div>
+                        <div class="card-back-tag">检测到逻辑动摇：{{ backCount }} 次</div>
+                    </div>
+                    <div class="card-qr-box">
+                        <div style="width:40px; height:40px; background:#fff; padding:2px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.hemens1.online/" style="width:100%; height:100%;">
+                        </div>
+                        <span style="font-size:9px; color:#444;">扫码进入灵魂实验室</span>
+                    </div>
+                </div>
+                <div class="card-btn-group">
+                    <button class="card-save-btn" @click="saveCardImage">确认保存图片</button>
+                    <button class="card-close-btn" @click="showCard = false">关闭</button>
+                </div>
+            </div>
             
             <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
         </div>
@@ -672,6 +724,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const backCount = ref(0);
             const quizAlive = ref(true); // 用于强制物理销毁 DOM 状态
             const isAnswering = ref(false); // 新增：防重复点击锁
+            const showCard = ref(false); 
+            const archiveNo = ref('');
 
             const dimNames = ["断裂带诊断", "磁场余温探测", "自我进化率", "未来重构力"];
 
@@ -1160,6 +1214,32 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
                 }, 80); // 优化：加载时长调整为8秒，提升体验
             };
 
+            // 打开名片弹窗并生成档案号
+            const openCardModal = () => {
+                archiveNo.value = 'ARCHIVE NO. ' + (new Date().getFullYear()) + '-' + Math.floor(Math.random()*9000 + 1000);
+                showCard.value = true;
+            };
+
+            // 核心：保存图片功能
+            const saveCardImage = () => {
+                const btn = document.querySelector('.card-save-btn');
+                const originalText = btn.innerText;
+                btn.innerText = '正在生成...';
+                
+                const card = document.getElementById('soul-card-target');
+                html2canvas(card, {
+                    scale: 3, // 高清
+                    backgroundColor: '#0a0a0a',
+                    useCORS: true 
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `HEMENS_SOUL_ARCHIVE.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    btn.innerText = originalText;
+                });
+            };
+            
             // 暴露变量和方法给模板
             return {
                 page,
@@ -1177,6 +1257,11 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
                 factorDetails,
                 handleChoice,
                 prevStep
+                openCardModal
+                saveCardImage
+                showCard
+                archiveNo
+            
             };
         }
     }).mount('#app'); // 挂载到 #app 容器
@@ -1184,4 +1269,5 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
 </script>
 </body>
 </html>
+
 
