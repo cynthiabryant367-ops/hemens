@@ -788,7 +788,8 @@ createApp({
                 letter: `\n\n<div class="essay-section-title">第七部分：禾梦实验室私房信函</div>\n亲爱的，不要在废墟里寻找火苗。去成为那团火本身。这次探测只是一个开始，是你向内看的第一眼。所有消失的信号，最终都会以更好的方式回归。如果它没回来，说明它已经配不上进阶后的你了。祝你在这个清冷的夜晚，找回属于自己的、最稳固的逻辑闭环。`
             };
 
-            return header + hesitationBlock + sections.mirror + sections.wound + sections.resonance + sections.attachment + sections.innerSeek + sections.prophecy + sections.letter;
+            // 核心修改：调整第四、五部分的拼接顺序
+            return header + hesitationBlock + sections.mirror + sections.wound + sections.resonance + sections.innerSeek + sections.attachment + sections.prophecy + sections.letter;
         });
 
         const resultQualitative = computed(() => {
