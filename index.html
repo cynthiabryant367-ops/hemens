@@ -8,6 +8,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* 1. 确保所有图片不会撑破屏幕 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 2. 将所有固定像素的宽度改为百分比 */
+/* 寻找代码里所有 width: 1200px (或类似大数值) 的地方，改为 100% */
+.container, .main, div { 
+    max-width: 100%; 
+    box-sizing: border-box; 
+}
+
+/* 3. 防止文字溢出 */
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
         :root {
             --bg-color: #fffaf1;
             --main-blue: #74b9ff;
@@ -453,4 +472,5 @@ createApp({
 </script>
 </body>
 </html>
+
 
