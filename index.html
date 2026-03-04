@@ -622,59 +622,65 @@
             </div>
         </div>
 
-        <!-- 阶段 4：终极深度报告 -->
-        <div v-else-if="page === 'result'" key="result" style="width: 100%;">
-            <div class="report-header" style="width: 100%;"><h2 style="font-size: 22px; font-weight: 950; margin-bottom: 5px;">复合概率灵魂复盘档案</h2><small style="font-size: 12px; color: #666;">HEMENS LAB · 深度透视版</small></div>
+  <!-- 阶段 4：终极深度报告 -->
+<div v-else-if="page === 'result'" key="result" style="width: 100%;">
+    <div class="report-header" style="width: 100%;"><h2 style="font-size: 22px; font-weight: 950; margin-bottom: 5px;">复合概率灵魂复盘档案</h2><small style="font-size: 12px; color: #666;">HEMENS LAB · 深度透视版</small></div>
 
-            <!-- UI 升级：核心探测仪 (大数字 + 满格字) -->
-            <div class="scanner-hero">
-                <p style="font-size: 14px; font-weight: 950; color: #b2bec3; letter-spacing: 3px;">COMPOSITE PROBABILITY</p>
-                <div class="prob-num">{{ finalProb }}%</div>
-                <div class="status-badge">{{ resultQualitative.label }}</div>
-                
-                <!-- 灵魂批注：字号放大至 38px，彻底解决空白问题 -->
-                <div class="thermal-label">
-                    <div class="quote-text">“{{ dynamicQuote }}”</div>
-                </div>
-            </div>
-
-            <!-- 犹豫因子报警 (只要回退过就显示) -->
-            <div v-if="backCount > 0" style="border: 6px solid var(--main-red); background: #fff5f5; padding: 20px; border-radius: 24px; margin-bottom: 30px; box-shadow: 12px 12px 0px rgba(255,118,117,0.12); width: 100%;">
-                <h4 style="color: var(--main-red); margin: 0 0 10px 0; font-weight: 950; font-size: 18px;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 侧写)</h4>
-                <p style="font-size: 14px; color: #d63031; font-weight: 800; line-height: 1.6;">
-                    探测到你在探测过程中共执行了 <strong>{{ backCount }} 次</strong> 逻辑回溯行为。这反映出你在此刻的关系能量场中存在极强的不自信与【向外求】倾向。你试图美化答案，这正是你在这段关系中长期试图通过“表演”来换取对方认可的真实写影。真正的强者从不回头修正直觉。
-                </p>
-            </div>
-
-            <!-- 真正 4000 字级的灵魂复盘 (万字级深度文案池) -->
-            <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--main-blue); padding-left: 20px; font-size: 20px; width: 100%;">🧠 灵魂终极复盘深度解析</h3>
-            <div class="essay-paper">
-                <div class="essay-content" v-html="finalEssay"></div>
-                <div class="essay-footer">—— HEMENS LAB 总督导 禾梦 / 2026.03.04</div>
-            </div>
-
-            <!-- 因子面板 -->
-            <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--dark); padding-left: 20px; font-size: 20px; width: 100%;">📊 复合维度读数看板</h3>
-            <div class="factor-panel">
-                <div class="factor-cell" v-for="(f, i) in factorDetails" :key="i">
-                    <span class="cell-label">{{ f.name }}</span>
-                    <span class="cell-value">{{ f.score }}</span>
-                    <span class="cell-status-tag" :style="{ backgroundColor: f.isHigh ? 'var(--main-green)' : 'var(--main-red)' }">{{ f.status }}</span>
-                </div>
-            </div>
-
-            <!-- 维度详情 - 核心优化区域 -->
-            <div v-for="(f, i) in factorDetails" :key="i" class="detail-card">
-                <h4>● {{ f.name }}</h4>
-                <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
-                <p><strong>【核心逻辑定性】</strong>{{ f.analysis }}</p>
-                <p style="color: #2ecc71; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px;"><strong>【🌱 调频具体方案】</strong>{{ f.advice }}</p>
-            </div>
-
-            <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
+    <!-- UI 升级：核心探测仪 (大数字 + 满格字) -->
+    <div class="scanner-hero">
+        <p style="font-size: 14px; font-weight: 950; color: #b2bec3; letter-spacing: 3px;">COMPOSITE PROBABILITY</p>
+        <div class="prob-num">{{ finalProb }}%</div>
+        <div class="status-badge">{{ resultQualitative.label }}</div>
+        
+        <!-- 灵魂批注：字号放大至 38px，彻底解决空白问题 -->
+        <div class="thermal-label">
+            <div class="quote-text">“{{ dynamicQuote }}”</div>
         </div>
+    </div>
 
-    </transition>
+    <!-- 犹豫因子报警 (只要回退过就显示) -->
+    <div v-if="backCount > 0" style="border: 6px solid var(--main-red); background: #fff5f5; padding: 20px; border-radius: 24px; margin-bottom: 30px; box-shadow: 12px 12px 0px rgba(255,118,117,0.12); width: 100%;">
+        <h4 style="color: var(--main-red); margin: 0 0 10px 0; font-weight: 950; font-size: 18px;"><i class="fa-solid fa-circle-exclamation"></i> 捕捉到犹豫信号 (HEMENS 侧写)</h4>
+        <p style="font-size: 14px; color: #d63031; font-weight: 800; line-height: 1.6;">
+            探测到你在探测过程中共执行了 <strong>{{ backCount }} 次</strong> 逻辑回溯行为。这反映出你在此刻的关系能量场中存在极强的不自信与【向外求】倾向。你试图美化答案，这正是你在这段关系中长期试图通过“表演”来换取对方认可的真实写影。真正的强者从不回头修正直觉。
+        </p>
+    </div>
+
+    <!-- 真正 4000 字级的灵魂复盘 (万字级深度文案池) -->
+    <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--main-blue); padding-left: 20px; font-size: 20px; width: 100%;">🧠 灵魂终极复盘深度解析</h3>
+    <div class="essay-paper">
+        <div class="essay-content" v-html="finalEssay"></div>
+        <div class="essay-footer">—— HEMENS LAB 总督导 禾梦 / 2026.03.04</div>
+    </div>
+
+    <!-- 因子面板 -->
+    <h3 style="margin: 40px 0 20px; font-weight: 950; border-left: 14px solid var(--dark); padding-left: 20px; font-size: 20px; width: 100%;">📊 复合维度读数看板</h3>
+    <div class="factor-panel">
+        <div class="factor-cell" v-for="(f, i) in factorDetails" :key="i">
+            <span class="cell-label">{{ f.name }}</span>
+            <span class="cell-value">{{ f.score }}</span>
+            <span class="cell-status-tag" :style="{ backgroundColor: f.isHigh ? 'var(--main-green)' : 'var(--main-red)' }">{{ f.status }}</span>
+        </div>
+    </div>
+
+    <!-- 维度详情 - 核心优化区域 -->
+    <div v-for="(f, i) in factorDetails" :key="i" class="detail-card">
+        <h4>● {{ f.name }}</h4>
+        <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
+        <p><strong>【核心逻辑定性】</strong>{{ f.analysis }}</p>
+        <p style="color: #2ecc71; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px;"><strong>【🌱 调频具体方案】</strong>{{ f.advice }}</p>
+    </div>
+
+    <!-- 新增：关于结果的说明文字 -->
+    <div style="font-size:14px;line-height:1.6;color:#888;padding:15px;border-top:1px dashed #eee;margin-top:20px;">
+        <h4 style="font-size:14px;font-weight:normal;margin-bottom:8px;color:#666;">
+            <span style="color:#999;margin-right:5px;">💡</span>关于结果的说明
+        </h4>
+        <p>你可能会好奇，为什么你的答案能测出TA的感受？</p>
+        <p>其实这并非读心术，而是根据关系心理学与行为规律，从你的状态里，推导出你们关系最真实的样子。所有结果，都是基于客观逻辑的高概率判断。</p>
+    </div>
+
+    <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
 </div>
 
 <!-- ========== 音乐控制按钮 ========== -->
@@ -1093,6 +1099,7 @@ TA的心里从未放下过你。即便是在分离期间，TA也在默默守护�
 </script>
 </body>
 </html>
+
 
 
 
