@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 合并并优化 viewport 配置，修复移动端适配核心问题 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>HEMENS 灵魂实验室 - 复合概率深度探测</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
@@ -146,7 +145,7 @@
 
         .phase-step { 
             display: flex; 
-            align-items: center; 
+            align-items: flex-start; /* 优化：改为顶部对齐，更整齐 */
             gap: 15px; /* 减小间距 */
             margin-bottom: 18px; /* 减小间距 */
             width: 100%; /* 强制占满宽度 */
@@ -163,6 +162,26 @@
             font-weight: 950; 
             flex-shrink: 0; 
             font-size: 18px; /* 减小字体 */
+            /* 新增：增加阴影，视觉更立体 */
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+        }
+        /* 新增：阶段步骤文本容器，优化排版 */
+        .step-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px; /* 文本行间距更舒适 */
+        }
+        .step-text strong {
+            font-size: 14px;
+            color: var(--dark);
+            display: block;
+        }
+        .step-text p {
+            margin: 0;
+            font-size: 11px;
+            color: #666;
+            line-height: 1.4;
         }
 
         /* 结果页：核心探测仪 - 移动端比例优化 */
@@ -271,18 +290,26 @@
             align-items: center;
             box-shadow: 10px 10px 0px rgba(0,0,0,0.08);
             width: 100%; /* 强制占满网格宽度 */
+            /* 新增：因子卡片内间距优化，视觉更平衡 */
+            justify-content: space-between;
+            min-height: 120px;
         }
         .cell-label { 
             font-size: 13px; /* 减小字体 */
             font-weight: 950; 
             color: #636e72; 
             margin-bottom: 8px; /* 减小间距 */
+            /* 新增：标签大写，更有设计感 */
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .cell-value { 
             font-size: clamp(28px, 8vw, 36px); /* 响应式字体 */
             font-weight: 950; 
             color: var(--main-blue); 
             line-height: 1;
+            /* 新增：数值阴影，更突出 */
+            text-shadow: 2px 2px 0px rgba(116, 185, 255, 0.2);
         }
         .cell-status-tag { 
             margin-top: 10px; /* 减小间距 */
@@ -291,6 +318,8 @@
             font-size: 12px; /* 减小字体 */
             font-weight: 900; 
             color: white; 
+            /* 新增：状态标签阴影，更立体 */
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
         /* 复盘文案纸张 - 移动端适配 */
@@ -345,6 +374,8 @@
             line-height: 1.8; /* 减小行高 */
             font-weight: 600;
             width: 100%; /* 强制占满宽度 */
+            /* 新增：文本首行缩进，排版更规范 */
+            text-indent: 2em;
         }
         .essay-footer { 
             margin-top: 40px; /* 减小间距 */
@@ -369,6 +400,8 @@
             height: 100%; 
             background: var(--main-blue); 
             transition: width 0.3s; 
+            /* 新增：进度条渐变，更美观 */
+            background: linear-gradient(90deg, var(--main-blue), #81c9ff);
         }
         .fade-enter-active, .fade-leave-active { 
             transition: opacity 0.4s ease; 
@@ -396,6 +429,45 @@
             border-left: 8px solid var(--main-blue); /* 减小左边框 */
             line-height: 1.5; /* 减小行高 */
             width: 100%; /* 强制占满宽度 */
+            /* 新增：对话框轻微阴影，更有层次 */
+            box-shadow: 3px 3px 0px rgba(116, 185, 255, 0.1);
+        }
+
+        /* 维度详情卡片 - 核心优化：圈出区域排版升级 */
+        .detail-card {
+            width: 100%; 
+            margin-bottom: 25px; /* 微调间距，更透气 */
+            background: #fff; /* 新增：背景色，更突出 */
+            border: 4px solid var(--dark); /* 边框统一风格 */
+            border-radius: 20px; /* 圆角更柔和 */
+            padding: 20px 15px; /* 内边距更合理 */
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.05); /* 轻微阴影，更立体 */
+        }
+        .detail-card h4 {
+            margin: 0 0 12px 0; /* 标题间距优化 */
+            color: var(--main-blue); 
+            font-weight: 950; 
+            font-size: 18px; /* 字体大小微调 */
+            /* 新增：标题下划线，视觉引导 */
+            padding-bottom: 8px;
+            border-bottom: 2px dashed var(--main-blue);
+            display: inline-block;
+        }
+        .detail-card .white-talk-box {
+            margin: 10px 0 15px 0; /* 对话框间距优化 */
+            border-left-width: 6px; /* 左边框宽度微调 */
+            padding: 12px 15px; /* 内边距更紧凑 */
+        }
+        .detail-card p {
+            font-size: 14px; /* 字体大小统一 */
+            line-height: 1.7; /* 行高更舒适 */
+            color: #2d3436; 
+            margin: 8px 0; /* 段落间距优化 */
+            width: 100%;
+        }
+        .detail-card p strong {
+            /* 新增：关键词颜色突出 */
+            color: var(--main-red);
         }
 
         /* 响应式适配：小屏手机额外优化 */
@@ -411,6 +483,14 @@
             }
             .factor-panel {
                 grid-template-columns: 1fr; /* 小屏改为单列显示因子面板 */
+            }
+            /* 小屏优化维度详情卡片 */
+            .detail-card {
+                padding: 15px 10px;
+                border-width: 3px;
+            }
+            .detail-card h4 {
+                font-size: 16px;
             }
         }
     </style>
@@ -452,9 +532,28 @@
 
             <div class="manga-card" style="background: #f9f9f9; border-style: dashed; padding: 20px;">
                 <h4 style="margin: 0 0 20px 0; font-weight: 950; text-align: center; font-size: 16px;">探测阶段概览 / PHASE SCAN</h4>
-                <div class="phase-step"><div class="step-num">01</div><div style="font-size:14px;"><strong>断裂带诊断</strong><p style="margin:0;color:#666;font-size:11px;">扫描伤痕深度，判定是“划痕”还是“骨折”。</p></div></div>
-                <div class="phase-step"><div class="step-num">02</div><div style="font-size:14px;"><strong>磁场对齐扫描</strong><p style="margin:0;color:#666;font-size:11px;">通过潜意识连接度，探测 Wi-Fi 信号强度。</p></div></div>
-                <div class="phase-step"><div class="step-num">03</div><div style="font-size:14px;"><strong>4000字灵魂复盘</strong><p style="margin:0;color:#666;font-size:11px;">禾梦导师签发的极致档案，指引向内求的归途。</p></div></div>
+                <!-- 优化：阶段步骤结构调整，增加容器类名 -->
+                <div class="phase-step">
+                    <div class="step-num">01</div>
+                    <div class="step-text">
+                        <strong>断裂带诊断</strong>
+                        <p>扫描伤痕深度，判定是“划痕”还是“骨折”。</p>
+                    </div>
+                </div>
+                <div class="phase-step">
+                    <div class="step-num">02</div>
+                    <div class="step-text">
+                        <strong>磁场对齐扫描</strong>
+                        <p>通过潜意识连接度，探测 Wi-Fi 信号强度。</p>
+                    </div>
+                </div>
+                <div class="phase-step">
+                    <div class="step-num">03</div>
+                    <div class="step-text">
+                        <strong>4000字灵魂复盘</strong>
+                        <p>禾梦导师签发的极致档案，指引向内求的归途。</p>
+                    </div>
+                </div>
             </div>
 
             <button class="btn btn-primary" style="padding: 20px; margin-top: 10px;" @click="page = 'quiz'">开启灵魂探测 (15min)</button>
@@ -531,12 +630,12 @@
                 </div>
             </div>
 
-            <!-- 维度详情 -->
-            <div v-for="(f, i) in factorDetails" :key="i" class="detail-card" style="width: 100%; margin-bottom: 20px;">
-                <h4 style="margin:0; color: var(--main-blue); font-weight: 950; font-size: 20px;">● {{ f.name }}</h4>
+            <!-- 维度详情 - 核心优化区域 -->
+            <div v-for="(f, i) in factorDetails" :key="i" class="detail-card">
+                <h4>● {{ f.name }}</h4>
                 <div class="white-talk-box">白话释义：{{ f.whiteTalk }}</div>
-                <p style="font-size: 15px; line-height: 1.8; color: #2d3436; width: 100%;"><strong>【核心逻辑定性】</strong>{{ f.analysis }}</p>
-                <p style="font-size: 15px; color: #2ecc71; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px; width: 100%;"><strong>【🌱 调频具体方案】</strong>{{ f.advice }}</p>
+                <p><strong>【核心逻辑定性】</strong>{{ f.analysis }}</p>
+                <p style="color: #2ecc71; font-weight: 950; margin-top: 15px; border-top: 3px dashed #eee; padding-top: 15px;"><strong>【🌱 调频具体方案】</strong>{{ f.advice }}</p>
             </div>
 
             <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
