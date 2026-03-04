@@ -10,7 +10,7 @@
         /* 基础重置与移动端适配核心规则 */
         * { 
             box-sizing: border-box; 
-            font-family: 'Noto Sans SC', sans-serif; 
+            font-family: 'Noto Sans SC', "Microsoft Yahei", sans-serif; 
             -webkit-tap-highlight-color: transparent; 
             outline: none; 
             margin: 0;
@@ -524,10 +524,9 @@
 </head>
 <body>
 
-<!-- ========== 新增：音频播放器 ========== -->
+<!-- ========== 音频播放器：已替换为 emo.MP3 ========== -->
 <audio id="background-music" loop autoplay muted>
-    <!-- 使用免费无版权的背景音乐，你可以替换成自己的音频链接 -->
-    <source src="https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_1MB_MP3.mp3" type="audio/mpeg">
+    <source src="emo.MP3" type="audio/mpeg">
     你的浏览器不支持音频播放
 </audio>
 
@@ -696,6 +695,7 @@ createApp({
         const history = ref([]); 
         const backCount = ref(0);
         const quizAlive = ref(true); // 用于强制物理销毁 DOM 状态
+        const isAnswering = ref(false); // 新增：防重复点击锁
 
         // ========== 新增：音乐控制相关变量 ==========
         const isMusicPlaying = ref(false);
@@ -721,6 +721,7 @@ createApp({
                 // 播放成功后如果是静音状态，保持静音
                 if (audio.muted) {
                     musicIcon.className = 'fa-solid fa-volume-mute';
+                    isMusicPlaying.value = false;
                 } else {
                     musicIcon.className = 'fa-solid fa-volume-high';
                     isMusicPlaying.value = true;
@@ -781,6 +782,10 @@ createApp({
         const questions = baseQuestions.map(item => ({ ...item, opts: [...item.opts, { text: "以上都不是", score: 2.5 }] }));
 
         const handleChoice = async (score) => {
+            // 新增：防重复点击
+            if (isAnswering.value) return;
+            isAnswering.value = true;
+
             // 记录得分与历史
             const dimIdx = Math.floor(step.value / 10);
             dimScores.value[dimIdx] += score;
@@ -796,6 +801,7 @@ createApp({
                 const colors = ["#fab1a0", "#74b9ff", "#fdcb6e", "#55e6c1", "#a29bfe"];
                 quizColor.value = colors[Math.floor(Math.random() * colors.length)] + "22";
                 quizAlive.value = true; // 重新创建全新组件
+                isAnswering.value = false; // 解锁
             } else {
                 startAnalysis();
             }
@@ -820,7 +826,7 @@ createApp({
                     clearInterval(interval); 
                     page.value = 'result'; 
                 }
-            }, 50);
+            }, 80); // 优化：加载时长调整为8秒，提升体验
         };
 
         const finalProb = computed(() => {
