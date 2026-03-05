@@ -1181,8 +1181,19 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
 
                 if (step.value < 39) {
                     step.value++;
-                    const colors = ["#fab1a0", "#74b9ff", "#fdcb6e", "#55e6c1", "#a29bfe"];
-                    quizColor.value = colors[Math.floor(Math.random() * colors.length)] + "22";
+                    
+// --- 能量映射逻辑开始 ---
+let energyColor = '';
+if (score <= 1.5) {
+    energyColor = "#636e72"; // 沉闷灰：代表能量流失、依赖（向外求）
+} else if (score <= 2.5) {
+    energyColor = "#a29bfe"; // 忧郁紫：代表逻辑摇摆、自我拉扯
+} else {
+    energyColor = "#74b9ff"; // 禾梦蓝：代表高频觉醒、自我重建（向内求）
+}
+quizColor.value = energyColor + "22"; 
+// --- 能量映射逻辑结束 ---
+                    
                     quizAlive.value = true; // 重新创建全新组件
                     isAnswering.value = false; // 解锁
                 } else {
@@ -1269,6 +1280,7 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
 </script>
 </body>
 </html>
+
 
 
 
