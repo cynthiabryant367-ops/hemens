@@ -516,6 +516,20 @@
             .detail-card h4 {
                 font-size: 16px;
             }
+            
+            /* --- 呼吸灯核心代码开始 --- */
+@keyframes energyBreath {
+    0% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.02); filter: brightness(1.2) saturate(1.2); } /* 稍微放大并提亮，模拟心跳 */
+    100% { transform: scale(1); filter: brightness(1); }
+}
+
+.breathing {
+    /* 1.2秒完成一次呼吸，平滑且有质感 */
+    animation: energyBreath 1.2s ease-in-out forwards; 
+}
+/* --- 呼吸灯核心代码结束 --- */
+            
         }
     </style>
 </head>
@@ -1181,6 +1195,20 @@ TA此刻最期待的，就是与你重逢的那一刻，就是能再次牵着你
 
                 if (step.value < 39) {
                     step.value++;
+
+// --- 触发呼吸动画开始 ---
+const appEl = document.getElementById('app');
+if (appEl) {
+    // 1. 先摘掉帽子，以防它正戴着
+    appEl.classList.remove('breathing'); 
+    
+    // 2. 黑科技：强制浏览器“眨下眼”，确保它能察觉到动画要重新开始
+    void appEl.offsetWidth; 
+    
+    // 3. 重新戴上帽子，开始呼吸
+    appEl.classList.add('breathing');
+}
+// --- 触发呼吸动画结束 ---
                     
 // --- 能量映射逻辑开始 ---
 let energyColor = '';
@@ -1191,7 +1219,7 @@ if (score <= 1.5) {
 } else {
     energyColor = "#74b9ff"; // 禾梦蓝：代表高频觉醒、自我重建（向内求）
 }
-quizColor.value = energyColor + "22"; 
+quizColor.value = energyColor + "66"; 
 // --- 能量映射逻辑结束 ---
                     
                     quizAlive.value = true; // 重新创建全新组件
@@ -1280,6 +1308,7 @@ quizColor.value = energyColor + "22";
 </script>
 </body>
 </html>
+
 
 
 
