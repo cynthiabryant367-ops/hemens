@@ -531,6 +531,57 @@
 /* --- 呼吸灯核心代码结束 --- */
             
         }
+
+        .preview-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* 深邃黑色背景 */
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+}
+.preview-content {
+    width: 90%; max-width: 400px; text-align: center;
+}
+.preview-hint {
+    color: #74b9ff; font-size: 12px; letter-spacing: 2px; margin-bottom: 15px;
+    animation: pulse 2s infinite; /* 呼吸感提示 */
+}
+#previewImage {
+    width: 100%; border-radius: 12px; box-shadow: 0 0 30px rgba(116, 185, 255, 0.2);
+    border: 1px solid #333;
+}
+.close-btn {
+    margin-top: 20px; background: transparent; color: #666; border: 1px solid #333;
+    padding: 8px 20px; border-radius: 20px; font-size: 12px; cursor: pointer;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; } 50% { opacity: 1; }
+}
+
+        /* 让分享卡片躲在屏幕左边极远的地方，用户看不见，但截图软件能抓到 */
+.share-poster {
+    position: absolute;
+    left: -9999px; 
+    top: 0;
+    width: 375px;
+    height: 600px;
+    background: #050505;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+/* 金句样式：增加那种你喜欢的“向内求”的高级感 */
+.final-quote {
+    font-size: 16px;
+    color: #f0f0f0;
+    font-style: italic;
+    line-height: 1.6;
+    border-left: 2px solid #74b9ff; /* 禾梦蓝 */
+    padding-left: 15px;
+}
+        
     </style>
 </head>
 <body>
@@ -1319,8 +1370,30 @@ quizColor.value = energyColor + "99";
     }).mount('#app'); // 挂载到 #app 容器
 });
 </script>
+    
+    <div id="previewOverlay" class="preview-overlay" style="display: none;">
+    <div class="preview-content">
+        <p class="preview-hint">—— 档案已解密，请长按图片保存 ——</p>
+        <img id="previewImage" src="" alt="Soul Card">
+        <button onclick="closePreview()" class="close-btn">返回实验室</button>
+    </div>
+
+        <div id="captureCard" class="share-poster">
+    <div class="poster-header">HEMENS LAB // 档案编号 #{{archiveNo}}</div>
+    
+    <div class="poster-main">
+        <div class="poster-prob">{{finalScore}}%</div>
+        <div class="poster-title">镜像破裂 · 体面退场</div>
+    </div>
+    
+    <div class="poster-footer">
+        <p class="final-quote">“废墟里长不出新花，旧梦里到不了明天。”</p>
+    </div>
+</div>
+    
 </body>
 </html>
+
 
 
 
