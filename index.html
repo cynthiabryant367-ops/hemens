@@ -1416,26 +1416,36 @@ quizColor.value = energyColor + "99";
                 showCard.value = true;
             };
 
-            // 核心：保存图片功能
-            const saveCardImage = () => {
-                const btn = document.querySelector('.card-save-btn');
-                const originalText = btn.innerText;
-                btn.innerText = '正在生成...';
-                
-                const card = document.getElementById('soul-card-target');
-                html2canvas(card, {
-                    scale: 3, // 高清
-                    backgroundColor: '#0a0a0a',
-                    useCORS: true 
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = `HEMENS_SOUL_ARCHIVE.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    btn.innerText = originalText;
-                });
-            };
-            
+        // 核心：保存图片功能（HEMENS 2.0 优化版）
+const saveCardImage = () => {
+    const btn = document.querySelector('.card-save-btn');
+    const originalText = btn.innerText;
+    btn.innerText = '正在解密档案...';
+    
+    // 1. 精准锁定你的 2.0 新名片
+    const card = document.getElementById('captureCard'); 
+    
+    // 2. 截图前临时关闭“呼吸灯”，确保画面清晰
+    document.getElementById('app').style.animation = 'none';
+
+    html2canvas(card, {
+        scale: 2, // 2倍清晰度足够，减小安卓内存压力
+        backgroundColor: '#050505',
+        useCORS: true 
+    }).then(canvas => {
+        // 3. 核心：不直接下载，而是把图塞进预览弹窗
+        const imgData = canvas.toDataURL('image/png');
+        document.getElementById('previewImage').src = imgData;
+        document.getElementById('previewOverlay').style.display = 'flex';
+        
+        btn.innerText = originalText;
+        document.getElementById('app').style.animation = ''; // 恢复动画
+    }).catch(err => {
+        console.error("生成失败:", err);
+        btn.innerText = "重新尝试";
+    });
+};
+         
             // 暴露变量和方法给模板
             return {
                 page,
@@ -1462,18 +1472,16 @@ quizColor.value = energyColor + "99";
         }
     }).mount('#app'); // 挂载到 #app 容器
 });
-</script>
-    
-<div id="captureCard" class="share-poster">
-    
+
+    <div id="captureCard" class="share-poster">
     <div class="poster-meta">
-        <div class="meta-left">ARCHIVE // HMN-{{archiveNo}}</div>
-        <div class="meta-right mono"></div>
+        <div class="meta-left">{{ archiveNo }}</div>
+        <div class="meta-right mono">[DECRYPTED]</div>
     </div>
     
     <div class="poster-main">
         <div class="label">RESONANCE //</div>
-        <div class="final-score">{{finalScore}}%</div>
+        <div class="final-score">{{ finalProb }}%</div>
         <div class="poster-title">镜像破裂 · 体面退场</div>
     </div>
     
@@ -1487,8 +1495,10 @@ quizColor.value = energyColor + "99";
     </div>
 </div>
     
+</script>  
 </body>
 </html>
+
 
 
 
