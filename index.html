@@ -842,41 +842,35 @@
             v：Hemens043<br>
     </div>
             
-            <div id="app" :style="{ backgroundColor: quizColor }">
-    <transition name="fade" mode="out-in">
+         <div id="previewOverlay" class="preview-overlay" style="display: none;">
+        <div class="preview-content">
+            <p class="preview-hint">—— 档案已解密，请长按图片保存 ——</p>
+            <img id="previewImage" src="" alt="Soul Card">
+            <button onclick="document.getElementById('previewOverlay').style.display='none'" class="close-btn">返回实验室</button>
+        </div>
+    </div>
+
+    <div id="captureCard" class="share-poster">
+        <div class="poster-meta">
+            <div class="meta-left">{{ archiveNo }}</div>
+            <div class="meta-right mono">[DECRYPTED]</div>
+        </div>
         
-        <div v-else-if="page === 'result'" key="result" style="width: 100%;">
-            <button class="btn btn-primary" style="margin-top: 20px; height: 80px; font-size: 20px; width: 100%; background-color: var(--dark);" @click="openCardModal">领取我的灵魂档案名片</button>
+        <div class="poster-main">
+            <div class="label">RESONANCE //</div>
+            <div class="final-score">{{ finalProb }}%</div>
+            <div class="poster-title">镜像破裂 · 体面退场</div>
+        </div>
+        
+        <div class="poster-quote">
+            <p>“废墟里长不出新花，<br>旧梦里到不了明天。”</p>
+        </div>
 
-            <div id="previewOverlay" class="preview-overlay" v-if="showCard" style="display: none;">
-                <div class="preview-content">
-                    <p class="preview-hint">—— 档案已解密，请长按图片保存 ——</p>
-                    <img id="previewImage" src="" alt="Soul Card">
-                    <button @click="showCard = false" class="close-btn">返回实验室</button>
-                </div>
-            </div>
-
-            <div id="captureCard" class="share-poster">
-                <div class="poster-meta">
-                    <div class="meta-left">{{ archiveNo }}</div>
-                    <div class="meta-right mono">[DECRYPTED]</div>
-                </div>
-                
-                <div class="poster-main">
-                    <div class="label">RESONANCE //</div>
-                    <div class="final-score">{{ finalProb }}%</div>
-                    <div class="poster-title">镜像破裂 · 体面退场</div>
-                </div>
-                
-                <div class="poster-quote">
-                    <p>“废墟里长不出新花，<br>旧梦里到不了明天。”</p>
-                </div>
-
-                <div class="poster-footer">
-                    <div class="line"></div>
-                    <div class="footer-info">© HEMENS LAB // 逻辑重构模型</div>
-                </div>
-            </div>
+        <div class="poster-footer">
+            <div class="line"></div>
+            <div class="footer-info">© HEMENS LAB // 逻辑重构模型</div>
+        </div>
+    </div>
             
             <button class="btn btn-primary" style="margin-top: 40px; height: 80px; font-size: 20px; width: 100%;" onclick="location.reload()">重新开启灵魂探测</button>
         </div>
@@ -1505,6 +1499,7 @@ const saveCardImage = () => {
     
 </body>
 </html>
+
 
 
 
