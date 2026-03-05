@@ -732,7 +732,7 @@
                 <div class="phase-step">
                     <div class="step-num">03</div>
                     <div class="step-text">
-                        <strong>4000字灵魂复盘</strong>
+                        <strong>2000字灵魂复盘</strong>
                         <p>禾梦导师签发的极致档案，指引向内求的归途。</p>
                     </div>
                 </div>
@@ -842,40 +842,32 @@
             v：Hemens043<br>
     </div>
             
-  <div v-if="showCard" class="modal-overlay">
-                <div id="captureCard" class="share-poster" style="position: absolute; left: -9999px;">
-                    <div class="poster-meta">
-                        <div class="meta-left">{{ archiveNo }}</div>
-                        <div class="meta-right mono">[DECRYPTED]</div>
-                    </div>
-                    <div class="poster-main">
-                        <div class="label">RESONANCE //</div>
-                        <div class="final-score">{{ finalProb }}%</div>
-                        <div class="poster-title">镜像破裂 · 体面退场</div>
-                    </div>
-                    <div class="poster-quote">
-                        <p>“废墟里长不出新花，<br>旧梦里到不了明天。”</p>
-                    </div>
-                    <div class="poster-footer">
-                        <div class="line"></div>
-                        <div class="footer-info">© HEMENS LAB // 逻辑重构模型</div>
-                    </div>
-                </div>
+  <div id="previewOverlay" class="preview-overlay" style="display: none;">
+        <div class="preview-content">
+            <p class="preview-hint">—— 档案已解密，请长按图片保存 ——</p>
+            <img id="previewImage" src="" alt="Soul Card">
+            <button onclick="document.getElementById('previewOverlay').style.display='none'" class="close-btn">返回实验室</button>
+        </div>
+    </div>
 
-                <div id="previewOverlay" class="preview-overlay" style="display: none;">
-                    <div class="preview-content">
-                        <p class="preview-hint">—— 档案已解密，请长按图片保存 ——</p>
-                        <img id="previewImage" src="" alt="Soul Card">
-                        <button onclick="document.getElementById('previewOverlay').style.display='none'" class="close-btn">返回实验室</button>
-                    </div>
-                </div>
-
-                <div class="card-btn-group">
-                    <p style="color:#74b9ff; margin-bottom:15px;">档案已就绪</p>
-                    <button class="card-save-btn" @click="saveCardImage">生成分享名片</button>
-                    <button class="card-close-btn" @click="showCard = false">取消</button>
-                </div>
-            </div>
+    <div id="captureCard" class="share-poster">
+        <div class="poster-meta">
+            <div class="meta-left">{{ archiveNo }}</div>
+            <div class="meta-right mono">[DECRYPTED]</div>
+        </div>
+        <div class="poster-main">
+            <div class="label">RESONANCE //</div>
+            <div class="final-score">{{ finalProb }}%</div>
+            <div class="poster-title">镜像破裂 · 体面退场</div>
+        </div>
+        <div class="poster-quote">
+            <p>“废墟里长不出新花，<br>旧梦里到不了明天。”</p>
+        </div>
+        <div class="poster-footer">
+            <div class="line"></div>
+            <div class="footer-info">© HEMENS LAB // 逻辑重构模型</div>
+        </div>
+    </div>
 
 <script>
 // 确保页面加载完成后再初始化 Vue
@@ -1498,4 +1490,5 @@ const saveCardImage = () => {
     
 </body>
 </html>
+
 
